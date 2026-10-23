@@ -145,15 +145,16 @@ export function CustomersPage() {
               title={`${total} customer${total === 1 ? "" : "s"}`}
               description={busy ? "Refreshing…" : undefined}
             >
-              <Table>
+              <div className={styles.tableScroll}>
+                <Table className="cds--data-table--visible-overflow-menu">
                 <TableHead>
                   <TableRow>
                     <TableHeader>Name</TableHeader>
-                    <TableHeader>Email</TableHeader>
+                    <TableHeader className={styles.hideSmall}>Email</TableHeader>
                     <TableHeader>Status</TableHeader>
                     <TableHeader>Balance</TableHeader>
-                    <TableHeader>Created</TableHeader>
-                    <TableHeader>Actions</TableHeader>
+                    <TableHeader className={styles.hideSmall}>Created</TableHeader>
+                    <TableHeader className={styles.actionsHeader}>Actions</TableHeader>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -165,15 +166,15 @@ export function CustomersPage() {
                     return (
                       <TableRow key={customer.id}>
                         <TableCell>{customer.name}</TableCell>
-                        <TableCell>{customer.email}</TableCell>
+                        <TableCell className={styles.hideSmall}>{customer.email}</TableCell>
                         <TableCell>
                           <Tag type={status.tag}>{status.label}</Tag>
                         </TableCell>
                         <TableCell>
                           {formatMoney(customer.balanceMinor, customer.currency)}
                         </TableCell>
-                        <TableCell>{formatDate(customer.createdAt)}</TableCell>
-                        <TableCell className="cds--table-column-menu">
+                        <TableCell className={styles.hideSmall}>{formatDate(customer.createdAt)}</TableCell>
+                        <TableCell className={`${styles.actionsCell} cds--table-column-menu`}>
                           <OverflowMenu
                             aria-label={`Actions for ${customer.name}`}
                             flipped
@@ -201,7 +202,8 @@ export function CustomersPage() {
                     );
                   })}
                 </TableBody>
-              </Table>
+                </Table>
+              </div>
             </TableContainer>
             <Pagination
               className={styles.pagination}

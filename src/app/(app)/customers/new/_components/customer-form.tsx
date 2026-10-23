@@ -94,7 +94,7 @@ export function CustomerForm() {
           />
         ) : null}
 
-        <ButtonSet>
+        <ButtonSet className={styles.actions}>
           <Button type="submit" disabled={create.isPending}>
             {create.isPending ? "Creating…" : "Create customer"}
           </Button>

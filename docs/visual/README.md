@@ -10,6 +10,14 @@ intended rhythm instead of judging "looks fine" from code.
 - `customers-edit-1440.png` — `/customers/<id>/edit`, prefilled form
 - `delete-modal-1440.png` — the danger confirmation for deleting a customer
 
+Mobile, **390 px** wide:
+
+- `dashboard-390.png`
+- `customers-390.png` — Email and Created are hidden; actions stay pinned
+- `customers-new-390.png` — full-width stacked actions
+- `customers-edit-390.png`
+- `delete-modal-390.png` — full-width dialog, Cancel focused
+
 The Next dev indicator is disabled in `next.config.ts`, so screenshots stay
 clean.
 
@@ -27,6 +35,10 @@ clean.
 | Form width | 40rem (single column) |
 | Table → pagination | `1.5rem` / 24 px |
 | Page gutter at 1440 | 32 px (Carbon grid) |
+| Mobile page gutter | 16 px |
+| Mobile form actions | full width, stacked |
+| Mobile table | Email/Created hidden; actions sticky |
+| Mobile modal | full width |
 
 These come from Carbon spacing tokens (`05` = 1rem, `06` = 1.5rem,
 `07` = 2rem). The live contract is in

@@ -87,6 +87,8 @@ section a legend.
 - Group spacing should be larger than field spacing (for example 32 px fields,
   40 px sections).
 - 48 px between the last input and the action group.
+- Below 42 rem: fields take the full width and the action set stacks with
+  full-width buttons. Never let the form widen the page.
 
 ## Accessibility
 

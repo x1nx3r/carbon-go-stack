@@ -23,7 +23,7 @@ export function Page({
 }) {
   return (
     <Grid>
-      <Column sm={4} md={8} lg={16}>
+      <Column className={styles.column} sm={4} md={8} lg={16}>
         <Stack gap={7}>
           <Stack gap={5}>
             <h1 className={styles.title}>{title}</h1>
@@ -32,7 +32,7 @@ export function Page({
             ) : null}
           </Stack>
           {actions ? <div className={styles.actions}>{actions}</div> : null}
-          {children ? <div>{children}</div> : null}
+          {children ? <div className={styles.content}>{children}</div> : null}
         </Stack>
       </Column>
     </Grid>

@@ -151,7 +151,7 @@ function EditForm({ customer }: { customer: Customer }) {
           />
         ) : null}
 
-        <ButtonSet>
+        <ButtonSet className={styles.actions}>
           <Button type="submit" disabled={update.isPending}>
             {update.isPending ? "Saving…" : "Save changes"}
           </Button>

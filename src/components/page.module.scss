@@ -20,3 +20,12 @@
   flex-wrap: wrap;
   gap: spacing.$spacing-05;
 }
+
+.column {
+  min-inline-size: 0;
+}
+
+.content {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}

@@ -1,18 +1,67 @@
 @use "@carbon/react/scss/spacing" as spacing;
-@use "@carbon/react/scss/type" as type;
 
 .search {
   display: flex;
   align-items: flex-end;
   gap: spacing.$spacing-03;
+  inline-size: 100%;
   margin-block-end: spacing.$spacing-06;
   max-inline-size: 34rem;
 
   :global(.cds--form-item) {
     flex: 1;
+    min-inline-size: 0;
   }
+}
+
+.actionsHeader,
+.actionsCell {
+  inline-size: 1%;
+  text-align: end;
+  white-space: nowrap;
+}
+
+.tableScroll {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pagination {
   margin-block-start: spacing.$spacing-06;
+}
+
+@media (width <= 41.99rem) {
+  .tableScroll :global(.cds--data-table th),
+  .tableScroll :global(.cds--data-table td) {
+    padding-inline: spacing.$spacing-03;
+  }
+
+  .actionsHeader,
+  .actionsCell {
+    position: sticky;
+    inset-inline-end: 0;
+    z-index: 1;
+  }
+
+  .actionsHeader {
+    background: var(--cds-layer-accent);
+  }
+
+  .actionsCell {
+    background: var(--cds-layer);
+  }
+
+  .hideSmall {
+    display: none;
+  }
+
+  .search {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search :global(.cds--btn) {
+    inline-size: 100%;
+  }
 }

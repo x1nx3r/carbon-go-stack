@@ -89,6 +89,18 @@ Reserved for global actions: settings, complex filters, export, editing.
 Empty states are not an afterthought: the table, its toolbar and its pagination
 should make sense with zero rows.
 
+## Mobile
+
+- Hide secondary columns before shrinking the essential ones. In the golden
+  slice, Email and Created are hidden below 42 rem; Name, Status, Balance and
+  Actions remain.
+- Pin the actions column to the end so row actions stay reachable without
+  scrolling.
+- If the table still cannot fit, scroll inside the table only. The page must
+  never scroll horizontally.
+- Keep cell padding tighter on small screens; do not drop below the Carbon
+  spacing tokens.
+
 ## Template conventions
 
 - Amounts are right-aligned; names, emails and dates are left-aligned. Do not

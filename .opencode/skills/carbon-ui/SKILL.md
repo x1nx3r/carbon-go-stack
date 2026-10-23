@@ -25,6 +25,18 @@ them per page.
 The shell owns the header offset: `src/app/(app)/layout.module.scss` pads the
 top by header + `spacing-07`. **Never add shell padding in a page.**
 
+## Mobile
+
+At 390 px (and generally below 42 rem):
+
+- Page gutter is 16 px; the shell gap below the header stays 32 px.
+- Form actions stack and become full width; search fields stack.
+- Tables hide secondary columns (Email, Created here), keep Name / Status /
+  Amount / Actions, and pin the actions column to the end. If the table still
+  scrolls, scroll inside the table — never the page.
+- Modals are full width; destructive dialogs still focus Cancel.
+- Touch targets stay at least 44 px.
+
 ## Use the primitives
 
 - **`Page`** (`src/components/page.tsx`) owns the grid, title, description,
