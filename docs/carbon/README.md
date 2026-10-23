@@ -4,9 +4,9 @@ This is the **decision layer** over the raw Carbon source in `source/`. Read
 these files when building a screen; read the source only when this says to.
 
 Status: complete for the current ERP scope. `choose-a-component`, `tables`,
-`forms`, `feedback`, `accessibility`, `content` and `patterns` are written.
-The create form and the delete confirmation validate forms, feedback and the
-destructive-action pattern; an edit screen is the next slice.
+`forms`, `feedback`, `accessibility`, `content` and `patterns` are written, with
+an appendix for icons, themes and motion. Create, edit and delete are built and
+validate forms, feedback and the destructive-action pattern.
 
 ## Routing
 
@@ -20,6 +20,7 @@ destructive-action pattern; an edit screen is the next slice.
 | Keyboard, labels, focus, contrast | `accessibility.md` |
 | Labels, errors, empty-state copy | `content.md` |
 | Page assembly, tabs, delete, login, disabled | `patterns.md` |
+| Icons, themes, motion | `appendix-elements.md` |
 | Exact component props | `node_modules/@carbon/react/lib/components/<Name>/<Name>.d.ts` |
 | Design rationale / deeper reading | `source/web/...` and `source/react/...` |
 
@@ -59,8 +60,8 @@ copy the same rule into two docs.
 ## Scope
 
 Out of scope for now: AI components (`AILabel`, `AISkeleton`), data
-visualization, motion choreography and pictograms. Add an appendix if the
-template needs them.
+visualization and pictograms. Icons, themes and motion are covered in the
+appendix at usage level, not as a full motion system.
 
 The component docs in `source/react/` are pinned to 1.119.0; the website
 guidance is a snapshot. Re-check both when Carbon moves.

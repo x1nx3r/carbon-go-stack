@@ -148,7 +148,8 @@ Wire the submit to the generated Connect mutation, invalidate the affected
 query keys, and show the success or error notification. Keep the page a shell:
 the form is a client component in the route's `_components`. The working
 example is
-`src/app/(app)/customers/new/_components/customer-form.tsx`.
+`src/app/(app)/customers/new/_components/customer-form.tsx`; edit mirrors it in
+`src/app/(app)/customers/[id]/edit/_components/edit-customer-form.tsx`.
 
 ## Common mistakes
 
