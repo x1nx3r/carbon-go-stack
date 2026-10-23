@@ -6,8 +6,8 @@ the domain. The web app renders; the backend decides.
 
 Read `docs/adr/0001-web-is-client-only.md` before touching data fetching or
 anything under `src/app`. Load `.opencode/skills/web-boundaries` for the
-decision tree, and `carbon-ui` for layout numbers before touching a screen.
-`erp-domain` carries the vocabulary.
+decision tree, `carbon-ui` for layout numbers, and `docs/carbon/README.md`
+for component choice, tables and forms. `erp-domain` carries the vocabulary.
 
 ## Hard rules
 

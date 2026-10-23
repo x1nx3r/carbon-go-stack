@@ -6,6 +6,7 @@ intended rhythm instead of judging "looks fine" from code.
 
 - `dashboard-1440.png` — `/`
 - `customers-1440.png` — `/customers`, loaded state
+- `customers-new-1440.png` — `/customers/new`, empty form
 
 The Next dev indicator is disabled in `next.config.ts`, so screenshots stay
 clean.
@@ -19,6 +20,9 @@ clean.
 | Page title → description | `1rem` / 16 px |
 | Description / header → page content | `2rem` / 32 px |
 | Search row → table | `1.5rem` / 24 px |
+| Form fields | `2rem` / 32 px |
+| Last form field → actions | `3rem` / 48 px |
+| Form width | 40rem (single column) |
 | Table → pagination | `1.5rem` / 24 px |
 | Page gutter at 1440 | 32 px (Carbon grid) |
 
