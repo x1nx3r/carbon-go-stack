@@ -51,6 +51,7 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "src/gen/**",
+    "docs/carbon/source/**",
   ]),
 
   {

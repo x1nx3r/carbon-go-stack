@@ -26,15 +26,16 @@ documentation.
 |---|---|
 | Source | <https://github.com/carbon-design-system/carbon-website> |
 | Commit | `5e9cd1da43c32d3d3b991dc947b427f674da61a8` (2026-09-30) |
-| Paths | `src/pages/{guidelines,patterns,elements}` |
-| Contents | 49 `.mdx` — `web/` |
+| Paths | `src/pages/{guidelines,patterns,elements,components}` |
+| Contents | 135 `.mdx` — `web/` (49 guidance + 86 component usage/accessibility) |
 | Index | `web/INDEX.md` |
 | License | Apache-2.0 — `LICENSE-web` |
 
 This is the design guidance behind <https://carbondesignsystem.com>:
 accessibility and content guidelines, patterns (forms, filtering, empty
-states, notifications, login, …), and elements (2x grid, spacing, typography,
-color, themes, icons, motion).
+states, notifications, login, …), elements (2x grid, spacing, typography,
+color, themes, icons, motion), and each component's usage and accessibility
+pages. Component API and examples stay with the pinned Storybook source.
 
 It is **not** pinned to Carbon 1.119. It is a snapshot of the site at the
 commit above. Cross-check component APIs against the pinned component docs and
