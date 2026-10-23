@@ -1,0 +1,41 @@
+# Visual baselines
+
+Reference screenshots of the template at **1440 px wide**. They are not golden
+tests; they exist so an agent (or a person) can compare a change against the
+intended rhythm instead of judging "looks fine" from code.
+
+- `dashboard-1440.png` — `/`
+- `customers-1440.png` — `/customers`, loaded state
+
+The Next dev indicator is disabled in `next.config.ts`, so screenshots stay
+clean.
+
+## The numbers these screenshots encode
+
+| Where | Value |
+|---|---|
+| Fixed header | `3rem` / 48 px |
+| Header → page title | `2rem` / 32 px |
+| Page title → description | `1rem` / 16 px |
+| Description / header → page content | `2rem` / 32 px |
+| Search row → table | `1.5rem` / 24 px |
+| Table → pagination | `1.5rem` / 24 px |
+| Page gutter at 1440 | 32 px (Carbon grid) |
+
+These come from Carbon spacing tokens (`05` = 1rem, `06` = 1.5rem,
+`07` = 2rem). The live contract is in
+`.opencode/skills/carbon-ui/SKILL.md`.
+
+## Regenerating
+
+```sh
+npm run mock   # terminal 1
+npm run dev    # terminal 2
+
+# at a 1440px-wide viewport
+# /            → docs/visual/dashboard-1440.png
+# /customers   → docs/visual/customers-1440.png
+```
+
+Measure, do not eyeball: compare `getBoundingClientRect()` gaps with the
+table above, then compare the whole page with the image.

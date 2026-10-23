@@ -6,7 +6,8 @@ the domain. The web app renders; the backend decides.
 
 Read `docs/adr/0001-web-is-client-only.md` before touching data fetching or
 anything under `src/app`. Load `.opencode/skills/web-boundaries` for the
-decision tree, and `carbon-ui` / `erp-domain` for UI and vocabulary.
+decision tree, and `carbon-ui` for layout numbers before touching a screen.
+`erp-domain` carries the vocabulary.
 
 ## Hard rules
 
@@ -25,6 +26,7 @@ decision tree, and `carbon-ui` / `erp-domain` for UI and vocabulary.
    reading request state on the web side.
 5. **Carbon only.** No Tailwind or other UI kits, no raw hex colors, no ad-hoc
    spacing or type. Use Carbon components and Carbon spacing/type mixins.
+   Build screens with `Page` and `Stack`; the shell owns the header offset.
    Carbon fonts come from IBM's CDN; do not add local font files.
 6. **List state lives in the URL** — page, filters, search — not in component
    state. Shareable screens are part of the ERP contract.
@@ -42,11 +44,12 @@ implementation detail.
 |---|---|
 | A route | `src/app/(app)/<segment>/page.tsx` — server shell |
 | Interaction for one route | `src/app/(app)/<segment>/_components/` — `"use client"` |
-| Shared, domain-free UI | `src/components/` |
+| Shared, domain-free UI | `src/components/` (`Page` owns page composition) |
 | Generated protobuf types and service descriptors | `src/gen/` — never edit |
 | Connect client | `src/lib/connect.ts` |
 | Query client | `src/components/providers.tsx` |
 | Formatting | `src/lib/format.ts` |
+| Layout contract + baselines | `.opencode/skills/carbon-ui/SKILL.md`, `docs/visual/` |
 | Transport proxy | `src/app/api/[...path]/route.ts` |
 
 ## Adding a data screen
@@ -63,6 +66,8 @@ implementation detail.
 - `npm run api:generate` if a proto changed, then `npm run lint`,
   `npm run typecheck`, `npm run build`
 - Open the affected routes; no console errors; screenshot UI changes.
+- Measure layout: header→title 32 px, title→description 16 px, blocks 32 px;
+  compare with `docs/visual/*.png` at 1440 px.
 - If you touched a rule, update the ADR or skill that states it.
 
 <!-- BEGIN:nextjs-agent-rules -->

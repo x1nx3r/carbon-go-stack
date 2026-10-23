@@ -2,9 +2,7 @@
 
 import {
   Button,
-  Column,
   DataTableSkeleton,
-  Grid,
   InlineNotification,
   Pagination,
   Table,
@@ -69,17 +67,8 @@ export function CustomersPage() {
   const busy = pending || result.isFetching;
 
   return (
-    <Grid>
-      <Column sm={4} md={8} lg={16}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Customers</h1>
-          <p className={styles.lede}>
-            A neutral ERP slice: search, pagination and a Carbon table. Data
-            arrives over Connect through the BFF; the page itself is a shell.
-          </p>
-        </div>
-
-        <form
+    <>
+      <form
           className={styles.search}
           onSubmit={(event) => {
             event.preventDefault();
@@ -169,7 +158,6 @@ export function CustomersPage() {
             />
           </>
         )}
-      </Column>
-    </Grid>
+    </>
   );
 }
