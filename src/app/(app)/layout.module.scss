@@ -3,6 +3,7 @@
 .main {
   min-block-size: 100vh;
 
-  // Carbon's header is 3rem tall and fixed.
-  padding-block: spacing.$spacing-09 spacing.$spacing-07;
+  // Carbon's header is fixed and 3rem tall; add a real gap below it.
+  padding-block: calc(#{spacing.$spacing-09} + #{spacing.$spacing-07})
+    spacing.$spacing-07;
 }
