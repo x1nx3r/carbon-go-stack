@@ -6,7 +6,7 @@ import noTailwindClassnames from "./eslint-rules/no-tailwind-classnames.mjs";
 const useServer = {
   selector: "ExpressionStatement[directive='use server']",
   message:
-    "Server Actions are not allowed here. Put the logic in the backend API and call it through the generated RTK Query hooks.",
+    "Server Actions are not allowed here. Put the logic in the backend API and call it through the generated Connect client.",
 };
 
 const useClientInShell = {
@@ -50,7 +50,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "src/services/modules/**",
+    "src/gen/**",
   ]),
 
   {
@@ -66,7 +66,7 @@ const eslintConfig = defineConfig([
         {
           name: "fetch",
           message:
-            "Use the generated RTK Query hooks in src/services instead of calling fetch directly.",
+            "Use the generated Connect client in src/lib/connect.ts instead of calling fetch directly.",
         },
       ],
       "no-restricted-imports": [
@@ -79,9 +79,14 @@ const eslintConfig = defineConfig([
               message: "Carbon is the only UI system in this template.",
             },
             {
-              group: ["@/lib/server/*", "@/server/*", "@/lib/db/*"],
+              group: [
+                "@/lib/server/*",
+                "@/server/*",
+                "@/lib/db/*",
+                "@connectrpc/connect-node",
+              ],
               message:
-                "No server-side modules in this repo. That logic belongs in the backend.",
+                "No server-side modules in this repo. That logic belongs in the backend. The Node Connect transport is a reviewed exception only for server-rendered reads.",
             },
           ],
         },

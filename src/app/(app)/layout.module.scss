@@ -1,0 +1,8 @@
+@use "@carbon/react/scss/spacing" as spacing;
+
+.main {
+  min-block-size: 100vh;
+
+  // Carbon's header is 3rem tall and fixed.
+  padding-block: spacing.$spacing-09 spacing.$spacing-07;
+}
