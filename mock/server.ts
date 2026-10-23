@@ -75,6 +75,25 @@ const handler = connectNodeAdapter({
         return { customer };
       },
 
+      updateCustomer(request) {
+        const customer = customers.find((item) => item.id === request.id);
+        if (!customer) {
+          throw new ConnectError(`Customer ${request.id} not found`, Code.NotFound);
+        }
+        const name = request.name.trim();
+        const email = request.email.trim();
+        if (!name) {
+          throw new ConnectError("Name is required", Code.InvalidArgument);
+        }
+        if (!email.includes("@")) {
+          throw new ConnectError("A valid email is required", Code.InvalidArgument);
+        }
+        customer.name = name;
+        customer.email = email;
+        if (request.currency) customer.currency = request.currency;
+        return { customer };
+      },
+
       deleteCustomer(request) {
         const index = customers.findIndex((item) => item.id === request.id);
         if (index === -1) {

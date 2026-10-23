@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { customersClient } from "@/lib/connect";
-import styles from "./customer-form.module.scss";
+import styles from "@/components/form.module.scss";
 
 export function CustomerForm() {
   const router = useRouter();

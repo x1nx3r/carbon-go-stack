@@ -180,6 +180,12 @@ export function CustomersPage() {
                             size="sm"
                           >
                             <OverflowMenuItem
+                              itemText="Edit"
+                              onClick={() =>
+                                router.push(`/customers/${customer.id}/edit`)
+                              }
+                            />
+                            <OverflowMenuItem
                               itemText="Delete"
                               isDelete
                               onClick={() =>

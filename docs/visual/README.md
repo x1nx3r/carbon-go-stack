@@ -7,6 +7,7 @@ intended rhythm instead of judging "looks fine" from code.
 - `dashboard-1440.png` — `/`
 - `customers-1440.png` — `/customers`, loaded state
 - `customers-new-1440.png` — `/customers/new`, empty form
+- `customers-edit-1440.png` — `/customers/<id>/edit`, prefilled form
 - `delete-modal-1440.png` — the danger confirmation for deleting a customer
 
 The Next dev indicator is disabled in `next.config.ts`, so screenshots stay
