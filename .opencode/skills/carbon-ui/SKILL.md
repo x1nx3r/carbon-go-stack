@@ -41,6 +41,8 @@ At 390 px (and generally below 42 rem):
 
 - **`Page`** (`src/components/page.tsx`) owns the grid, title, description,
   actions and block rhythm. Build every screen with it.
+- Page actions that navigate are `Link`s, not buttons. A button is an action
+  on the current page.
 - **`Stack`** for vertical/horizontal rhythm. Numeric gaps are Carbon spacing
   steps: `gap={5}` = 1rem, `gap={6}` = 1.5rem, `gap={7}` = 2rem.
 - **`Grid` + `Column`** for the 16-column page grid. At `lg`, `Column 16` is

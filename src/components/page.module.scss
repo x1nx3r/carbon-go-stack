@@ -29,3 +29,11 @@
   max-inline-size: 100%;
   min-inline-size: 0;
 }
+
+@media (width <= 41.99rem) {
+  .actions :global(.cds--link) {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+}

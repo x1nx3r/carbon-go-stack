@@ -32,7 +32,8 @@ rules that matter most in this template.
   `footer`. A `div` with a click handler is not a button.
 - Double up mouse-only events (`mouseover`/`mouseout`) with focus/blur or use
   native controls.
-- Use landmarks so screen-reader users can jump between regions.
+- Use landmarks so screen-reader users can jump between regions. The shell
+  provides a skip link; keep it first in the tab order.
 
 ## Labels
 

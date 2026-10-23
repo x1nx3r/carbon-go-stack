@@ -105,7 +105,7 @@ should make sense with zero rows.
 
 - Amounts are right-aligned; names, emails and dates are left-aligned. Do not
   center data columns.
-- List state (page, query, filters) lives in URL search params.
+- List state (page, query, filters, page size) lives in URL search params.
 - Keep the rhythm: toolbar→table and table→pagination are `spacing-06`
   (24 px). See `carbon-ui`.
 

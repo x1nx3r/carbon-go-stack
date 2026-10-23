@@ -39,6 +39,8 @@ clean.
 | Mobile form actions | full width, stacked |
 | Mobile table | Email/Created hidden; actions sticky |
 | Mobile modal | full width |
+| Numeric columns | right-aligned |
+| Page actions | links, not buttons |
 
 These come from Carbon spacing tokens (`05` = 1rem, `06` = 1.5rem,
 `07` = 2rem). The live contract is in

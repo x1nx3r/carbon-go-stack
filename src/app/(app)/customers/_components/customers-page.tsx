@@ -4,6 +4,7 @@ import {
   Button,
   DataTableSkeleton,
   InlineNotification,
+  Link,
   Modal,
   OverflowMenu,
   OverflowMenuItem,
@@ -17,6 +18,7 @@ import {
   TableRow,
   Tag,
   TextInput,
+  Tile,
 } from "@carbon/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -26,7 +28,7 @@ import { customersClient } from "@/lib/connect";
 import { formatDate, formatMoney } from "@/lib/format";
 import styles from "./customers-page.module.scss";
 
-const PAGE_SIZE = 20;
+const DEFAULT_PAGE_SIZE = 20;
 const PAGE_SIZES = [10, 20, 50];
 
 type DeleteTarget = { id: string; name: string };
@@ -46,8 +48,15 @@ export function CustomersPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const page = Math.max(1, Number.parseInt(searchParams.get("page") ?? "1", 10) || 1);
+  const page = Math.max(
+    1,
+    Number.parseInt(searchParams.get("page") ?? "1", 10) || 1,
+  );
   const query = (searchParams.get("q") ?? "").trim();
+  const requestedSize = Number.parseInt(searchParams.get("size") ?? "", 10);
+  const pageSize = PAGE_SIZES.includes(requestedSize)
+    ? requestedSize
+    : DEFAULT_PAGE_SIZE;
   const [pending, startTransition] = useTransition();
   const [pendingDelete, setPendingDelete] = useState<DeleteTarget | null>(null);
   const [notice, setNotice] = useState<Notice | null>(null);
@@ -61,23 +70,26 @@ export function CustomersPage() {
       setNotice({ kind: "success", text: `Deleted ${target.name}.` });
       await queryClient.invalidateQueries({ queryKey: ["customers"] });
     },
-    onError: (error) => {
-      setNotice({ kind: "error", text: error.message });
+    onError: () => {
+      // The modal stays open; the error is shown inside it, where the user is.
+      setNotice(null);
     },
   });
 
   const result = useQuery({
-    queryKey: ["customers", page, query],
+    queryKey: ["customers", page, pageSize, query],
     queryFn: () =>
-      customersClient.listCustomers({ page, pageSize: PAGE_SIZE, query }),
+      customersClient.listCustomers({ page, pageSize, query }),
   });
 
-  function navigate(next: { page?: number; query?: string }) {
+  function navigate(next: { page?: number; query?: string; size?: number }) {
     const nextPage = next.page ?? page;
     const nextQuery = next.query ?? query;
+    const nextSize = next.size ?? pageSize;
     const params = new URLSearchParams();
     if (nextPage > 1) params.set("page", String(nextPage));
     if (nextQuery) params.set("q", nextQuery);
+    if (nextSize !== DEFAULT_PAGE_SIZE) params.set("size", String(nextSize));
     const suffix = params.toString();
     startTransition(() =>
       router.push(suffix ? `${pathname}?${suffix}` : pathname),
@@ -99,62 +111,92 @@ export function CustomersPage() {
       ) : null}
 
       <form
-          className={styles.search}
-          onSubmit={(event) => {
-            event.preventDefault();
-            const data = new FormData(event.currentTarget);
-            navigate({ page: 1, query: String(data.get("q") ?? "").trim() });
-          }}
-        >
-          <TextInput
-            key={query}
-            id="customer-search"
-            name="q"
-            labelText="Search customers"
-            placeholder="Name or email"
-            defaultValue={query}
-          />
-          <Button type="submit">Search</Button>
-        </form>
+        className={styles.search}
+        onSubmit={(event) => {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          navigate({ page: 1, query: String(data.get("q") ?? "").trim() });
+        }}
+      >
+        <TextInput
+          key={query}
+          id="customer-search"
+          name="q"
+          labelText="Search customers"
+          placeholder="Name or email"
+          defaultValue={query}
+        />
+        <Button kind="tertiary" type="submit">
+          Search
+        </Button>
+      </form>
 
-        {result.isPending ? (
-          <DataTableSkeleton
-            columnCount={6}
-            rowCount={8}
-            showToolbar={false}
-          />
-        ) : result.isError ? (
+      {result.isPending ? (
+        <DataTableSkeleton
+          columnCount={6}
+          rowCount={8}
+          showToolbar={false}
+        />
+      ) : result.isError ? (
+        <>
           <InlineNotification
             kind="error"
             title="Could not load customers"
             subtitle={result.error.message}
           />
-        ) : customers.length === 0 ? (
-          <InlineNotification
-            kind="info"
-            title="No customers"
-            subtitle={
-              query
-                ? `Nothing matches “${query}”.`
-                : "Create the first customer in the backend, or seed the mock."
-            }
-          />
-        ) : (
-          <>
-            <TableContainer
-              title={`${total} customer${total === 1 ? "" : "s"}`}
-              description={busy ? "Refreshing…" : undefined}
-            >
-              <div className={styles.tableScroll}>
-                <Table className="cds--data-table--visible-overflow-menu">
+          <Button
+            kind="tertiary"
+            className={styles.retry}
+            onClick={() => result.refetch()}
+          >
+            Try again
+          </Button>
+        </>
+      ) : customers.length === 0 ? (
+        <Tile className={styles.empty}>
+          {total > 0 ? (
+            <>
+              <h2 className={styles.emptyTitle}>No customers on this page</h2>
+              <p className={styles.emptyBody}>
+                This page is past the end of the list. Return to the first page.
+              </p>
+              <Link href="/customers">Go to the first page</Link>
+            </>
+          ) : (
+            <>
+              <h2 className={styles.emptyTitle}>
+                {query ? "No matching customers" : "No customers yet"}
+              </h2>
+              <p className={styles.emptyBody}>
+                {query
+                  ? `Nothing matches “${query}”. Adjust the search or clear it.`
+                  : "Create the first customer to see it here."}
+              </p>
+              <Link href={query ? "/customers" : "/customers/new"}>
+                {query ? "Clear search" : "Create the first customer"}
+              </Link>
+            </>
+          )}
+        </Tile>
+      ) : (
+        <>
+          <TableContainer
+            title={`${total} customer${total === 1 ? "" : "s"}`}
+            description={busy ? "Refreshing…" : undefined}
+          >
+            <div className={styles.tableScroll}>
+              <Table className="cds--data-table--visible-overflow-menu">
+                <caption className="cds--visually-hidden">Customers</caption>
                 <TableHead>
                   <TableRow>
                     <TableHeader>Name</TableHeader>
                     <TableHeader className={styles.hideSmall}>Email</TableHeader>
                     <TableHeader>Status</TableHeader>
-                    <TableHeader>Balance</TableHeader>
+                    <TableHeader className={styles.numeric}>Balance</TableHeader>
                     <TableHeader className={styles.hideSmall}>Created</TableHeader>
-                    <TableHeader className={styles.actionsHeader}>Actions</TableHeader>
+                    <TableHeader className={styles.actionsHeader}>
+                      Actions
+                    </TableHeader>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -166,19 +208,25 @@ export function CustomersPage() {
                     return (
                       <TableRow key={customer.id}>
                         <TableCell>{customer.name}</TableCell>
-                        <TableCell className={styles.hideSmall}>{customer.email}</TableCell>
+                        <TableCell className={styles.hideSmall}>
+                          {customer.email}
+                        </TableCell>
                         <TableCell>
                           <Tag type={status.tag}>{status.label}</Tag>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={styles.numeric}>
                           {formatMoney(customer.balanceMinor, customer.currency)}
                         </TableCell>
-                        <TableCell className={styles.hideSmall}>{formatDate(customer.createdAt)}</TableCell>
-                        <TableCell className={`${styles.actionsCell} cds--table-column-menu`}>
+                        <TableCell className={styles.hideSmall}>
+                          {formatDate(customer.createdAt)}
+                        </TableCell>
+                        <TableCell
+                          className={`${styles.actionsCell} cds--table-column-menu`}
+                        >
                           <OverflowMenu
                             aria-label={`Actions for ${customer.name}`}
+                            iconDescription={`Actions for ${customer.name}`}
                             flipped
-                            size="sm"
                           >
                             <OverflowMenuItem
                               itemText="Edit"
@@ -189,12 +237,13 @@ export function CustomersPage() {
                             <OverflowMenuItem
                               itemText="Delete"
                               isDelete
-                              onClick={() =>
+                              onClick={() => {
+                                remove.reset();
                                 setPendingDelete({
                                   id: customer.id,
                                   name: customer.name,
-                                })
-                              }
+                                });
+                              }}
                             />
                           </OverflowMenu>
                         </TableCell>
@@ -202,19 +251,24 @@ export function CustomersPage() {
                     );
                   })}
                 </TableBody>
-                </Table>
-              </div>
-            </TableContainer>
-            <Pagination
-              className={styles.pagination}
-              page={page}
-              pageSize={PAGE_SIZE}
-              pageSizes={PAGE_SIZES}
-              totalItems={total}
-              onChange={({ page: nextPage }) => navigate({ page: nextPage })}
-            />
-          </>
-        )}
+              </Table>
+            </div>
+          </TableContainer>
+          <Pagination
+            className={styles.pagination}
+            page={page}
+            pageSize={pageSize}
+            pageSizes={PAGE_SIZES}
+            totalItems={total}
+            onChange={({ page: nextPage, pageSize: nextSize }) =>
+              navigate({
+                page: nextSize !== pageSize ? 1 : nextPage,
+                size: nextSize,
+              })
+            }
+          />
+        </>
+      )}
 
       <Modal
         open={Boolean(pendingDelete)}
@@ -222,17 +276,29 @@ export function CustomersPage() {
         modalHeading={
           pendingDelete ? `Delete ${pendingDelete.name}?` : "Delete customer?"
         }
-        primaryButtonText={remove.isPending ? "Deleting…" : "Delete"}
+        dangerDescription="Deletes the customer record permanently."
+        primaryButtonText={remove.isPending ? "Deleting…" : "Delete customer"}
         primaryButtonDisabled={remove.isPending}
         secondaryButtonText="Cancel"
-        onRequestClose={() => setPendingDelete(null)}
+        onRequestClose={() => {
+          setPendingDelete(null);
+          remove.reset();
+        }}
         onRequestSubmit={() => {
           if (pendingDelete && !remove.isPending) remove.mutate(pendingDelete);
         }}
       >
-        <p className="cds--modal-content__text">
-          This removes the customer record. It cannot be undone.
-        </p>
+        {remove.isError ? (
+          <InlineNotification
+            kind="error"
+            title="Could not delete the customer"
+            subtitle={remove.error.message}
+          />
+        ) : (
+          <p className="cds--modal-content__text">
+            This removes the customer record. It cannot be undone.
+          </p>
+        )}
       </Modal>
     </>
   );

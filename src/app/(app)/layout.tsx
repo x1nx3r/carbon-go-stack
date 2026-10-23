@@ -10,6 +10,9 @@ import styles from "./layout.module.scss";
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <>
+      <a className={styles.skip} href="#main">
+        Skip to main content
+      </a>
       <Header aria-label="ERP">
         <HeaderName href="/" prefix="">
           ERP
@@ -18,7 +21,9 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           <HeaderMenuItem href="/customers">Customers</HeaderMenuItem>
         </HeaderNavigation>
       </Header>
-      <main className={styles.main}>{children}</main>
+      <main id="main" className={styles.main}>
+        {children}
+      </main>
     </>
   );
 }

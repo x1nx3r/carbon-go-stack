@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Button, DataTableSkeleton } from "@carbon/react";
+import { DataTableSkeleton, Link } from "@carbon/react";
 import { Suspense } from "react";
 import { Page } from "@/components/page";
 import { CustomersPage } from "./_components/customers-page";
@@ -13,11 +13,7 @@ export default function CustomersRoute() {
     <Page
       title="Customers"
       description="A neutral ERP slice: search, pagination and a Carbon table. Data arrives over Connect through the BFF; the page itself is a shell."
-      actions={
-        <Button as="a" href="/customers/new">
-          New customer
-        </Button>
-      }
+      actions={<Link href="/customers/new">New customer</Link>}
     >
       <Suspense
         fallback={
