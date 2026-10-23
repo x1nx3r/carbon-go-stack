@@ -3,8 +3,10 @@
 This is the **decision layer** over the raw Carbon source in `source/`. Read
 these files when building a screen; read the source only when this says to.
 
-Status: pilot. `choose-a-component`, `tables` and `forms` are written; the
-remaining docs are listed at the end.
+Status: complete for the current ERP scope. `choose-a-component`, `tables`,
+`forms`, `feedback`, `accessibility`, `content` and `patterns` are written.
+The create form and the delete confirmation validate forms, feedback and the
+destructive-action pattern; an edit screen is the next slice.
 
 ## Routing
 
@@ -14,8 +16,10 @@ remaining docs are listed at the end.
 | Pick a component for a job | `choose-a-component.md` |
 | Build a list or data table | `tables.md` |
 | Build a create/edit form | `forms.md` |
-| Notifications, loading, errors | pending `feedback.md`; use `choose-a-component.md` meanwhile |
-| Accessibility or copy rules | pending `accessibility.md` / `content.md` |
+| Notifications, loading, empty and error states | `feedback.md` |
+| Keyboard, labels, focus, contrast | `accessibility.md` |
+| Labels, errors, empty-state copy | `content.md` |
+| Page assembly, tabs, delete, login, disabled | `patterns.md` |
 | Exact component props | `node_modules/@carbon/react/lib/components/<Name>/<Name>.d.ts` |
 | Design rationale / deeper reading | `source/web/...` and `source/react/...` |
 
@@ -52,10 +56,11 @@ copy the same rule into two docs.
 - Cite source files at the bottom; update the version header when Carbon moves.
 - If a doc and the source disagree, the source wins; fix the doc.
 
-## Pending
+## Scope
 
-- `feedback.md` — notifications, toasts, modals, loading and empty states.
-- `accessibility.md` — labels, focus, keyboard, contrast, motion.
-- `content.md` — sentence case, action labels, error copy.
-- `patterns.md` — page header + actions, detail tabs, destructive confirm,
-  filtering, login.
+Out of scope for now: AI components (`AILabel`, `AISkeleton`), data
+visualization, motion choreography and pictograms. Add an appendix if the
+template needs them.
+
+The component docs in `source/react/` are pinned to 1.119.0; the website
+guidance is a snapshot. Re-check both when Carbon moves.
