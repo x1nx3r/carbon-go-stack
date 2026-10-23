@@ -10,7 +10,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file erp/customers/v1/customers.proto.
  */
 export const file_erp_customers_v1_customers: GenFile = /*@__PURE__*/
-  fileDesc("CiBlcnAvY3VzdG9tZXJzL3YxL2N1c3RvbWVycy5wcm90bxIQZXJwLmN1c3RvbWVycy52MSKiAQoIQ3VzdG9tZXISCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIwCgZzdGF0dXMYBCABKA4yIC5lcnAuY3VzdG9tZXJzLnYxLkN1c3RvbWVyU3RhdHVzEhUKDWJhbGFuY2VfbWlub3IYBSABKAMSEAoIY3VycmVuY3kYBiABKAkSEgoKY3JlYXRlZF9hdBgHIAEoCSJGChRMaXN0Q3VzdG9tZXJzUmVxdWVzdBIMCgRwYWdlGAEgASgFEhEKCXBhZ2Vfc2l6ZRgCIAEoBRINCgVxdWVyeRgDIAEoCSJVChVMaXN0Q3VzdG9tZXJzUmVzcG9uc2USLQoJY3VzdG9tZXJzGAEgAygLMhouZXJwLmN1c3RvbWVycy52MS5DdXN0b21lchINCgV0b3RhbBgCIAEoBSIgChJHZXRDdXN0b21lclJlcXVlc3QSCgoCaWQYASABKAkiRgoVQ3JlYXRlQ3VzdG9tZXJSZXF1ZXN0EgwKBG5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIY3VycmVuY3kYAyABKAkiQwoTR2V0Q3VzdG9tZXJSZXNwb25zZRIsCghjdXN0b21lchgBIAEoCzIaLmVycC5jdXN0b21lcnMudjEuQ3VzdG9tZXIiRgoWQ3JlYXRlQ3VzdG9tZXJSZXNwb25zZRIsCghjdXN0b21lchgBIAEoCzIaLmVycC5jdXN0b21lcnMudjEuQ3VzdG9tZXIqiAEKDkN1c3RvbWVyU3RhdHVzEh8KG0NVU1RPTUVSX1NUQVRVU19VTlNQRUNJRklFRBAAEhoKFkNVU1RPTUVSX1NUQVRVU19BQ1RJVkUQARIbChdDVVNUT01FUl9TVEFUVVNfT05fSE9MRBACEhwKGENVU1RPTUVSX1NUQVRVU19BUkNISVZFRBADMrUCChBDdXN0b21lcnNTZXJ2aWNlEmAKDUxpc3RDdXN0b21lcnMSJi5lcnAuY3VzdG9tZXJzLnYxLkxpc3RDdXN0b21lcnNSZXF1ZXN0GicuZXJwLmN1c3RvbWVycy52MS5MaXN0Q3VzdG9tZXJzUmVzcG9uc2USWgoLR2V0Q3VzdG9tZXISJC5lcnAuY3VzdG9tZXJzLnYxLkdldEN1c3RvbWVyUmVxdWVzdBolLmVycC5jdXN0b21lcnMudjEuR2V0Q3VzdG9tZXJSZXNwb25zZRJjCg5DcmVhdGVDdXN0b21lchInLmVycC5jdXN0b21lcnMudjEuQ3JlYXRlQ3VzdG9tZXJSZXF1ZXN0GiguZXJwLmN1c3RvbWVycy52MS5DcmVhdGVDdXN0b21lclJlc3BvbnNlYgZwcm90bzM");
+  fileDesc("CiBlcnAvY3VzdG9tZXJzL3YxL2N1c3RvbWVycy5wcm90bxIQZXJwLmN1c3RvbWVycy52MSKiAQoIQ3VzdG9tZXISCgoCaWQYASABKAkSDAoEbmFtZRgCIAEoCRINCgVlbWFpbBgDIAEoCRIwCgZzdGF0dXMYBCABKA4yIC5lcnAuY3VzdG9tZXJzLnYxLkN1c3RvbWVyU3RhdHVzEhUKDWJhbGFuY2VfbWlub3IYBSABKAMSEAoIY3VycmVuY3kYBiABKAkSEgoKY3JlYXRlZF9hdBgHIAEoCSJGChRMaXN0Q3VzdG9tZXJzUmVxdWVzdBIMCgRwYWdlGAEgASgFEhEKCXBhZ2Vfc2l6ZRgCIAEoBRINCgVxdWVyeRgDIAEoCSJVChVMaXN0Q3VzdG9tZXJzUmVzcG9uc2USLQoJY3VzdG9tZXJzGAEgAygLMhouZXJwLmN1c3RvbWVycy52MS5DdXN0b21lchINCgV0b3RhbBgCIAEoBSIgChJHZXRDdXN0b21lclJlcXVlc3QSCgoCaWQYASABKAkiRgoVQ3JlYXRlQ3VzdG9tZXJSZXF1ZXN0EgwKBG5hbWUYASABKAkSDQoFZW1haWwYAiABKAkSEAoIY3VycmVuY3kYAyABKAkiQwoTR2V0Q3VzdG9tZXJSZXNwb25zZRIsCghjdXN0b21lchgBIAEoCzIaLmVycC5jdXN0b21lcnMudjEuQ3VzdG9tZXIiRgoWQ3JlYXRlQ3VzdG9tZXJSZXNwb25zZRIsCghjdXN0b21lchgBIAEoCzIaLmVycC5jdXN0b21lcnMudjEuQ3VzdG9tZXIiIwoVRGVsZXRlQ3VzdG9tZXJSZXF1ZXN0EgoKAmlkGAEgASgJIhgKFkRlbGV0ZUN1c3RvbWVyUmVzcG9uc2UqiAEKDkN1c3RvbWVyU3RhdHVzEh8KG0NVU1RPTUVSX1NUQVRVU19VTlNQRUNJRklFRBAAEhoKFkNVU1RPTUVSX1NUQVRVU19BQ1RJVkUQARIbChdDVVNUT01FUl9TVEFUVVNfT05fSE9MRBACEhwKGENVU1RPTUVSX1NUQVRVU19BUkNISVZFRBADMpoDChBDdXN0b21lcnNTZXJ2aWNlEmAKDUxpc3RDdXN0b21lcnMSJi5lcnAuY3VzdG9tZXJzLnYxLkxpc3RDdXN0b21lcnNSZXF1ZXN0GicuZXJwLmN1c3RvbWVycy52MS5MaXN0Q3VzdG9tZXJzUmVzcG9uc2USWgoLR2V0Q3VzdG9tZXISJC5lcnAuY3VzdG9tZXJzLnYxLkdldEN1c3RvbWVyUmVxdWVzdBolLmVycC5jdXN0b21lcnMudjEuR2V0Q3VzdG9tZXJSZXNwb25zZRJjCg5DcmVhdGVDdXN0b21lchInLmVycC5jdXN0b21lcnMudjEuQ3JlYXRlQ3VzdG9tZXJSZXF1ZXN0GiguZXJwLmN1c3RvbWVycy52MS5DcmVhdGVDdXN0b21lclJlc3BvbnNlEmMKDkRlbGV0ZUN1c3RvbWVyEicuZXJwLmN1c3RvbWVycy52MS5EZWxldGVDdXN0b21lclJlcXVlc3QaKC5lcnAuY3VzdG9tZXJzLnYxLkRlbGV0ZUN1c3RvbWVyUmVzcG9uc2ViBnByb3RvMw");
 
 /**
  * @generated from message erp.customers.v1.Customer
@@ -193,6 +193,36 @@ export const CreateCustomerResponseSchema: GenMessage<CreateCustomerResponse> = 
   messageDesc(file_erp_customers_v1_customers, 6);
 
 /**
+ * @generated from message erp.customers.v1.DeleteCustomerRequest
+ */
+export type DeleteCustomerRequest = Message<"erp.customers.v1.DeleteCustomerRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message erp.customers.v1.DeleteCustomerRequest.
+ * Use `create(DeleteCustomerRequestSchema)` to create a new message.
+ */
+export const DeleteCustomerRequestSchema: GenMessage<DeleteCustomerRequest> = /*@__PURE__*/
+  messageDesc(file_erp_customers_v1_customers, 7);
+
+/**
+ * @generated from message erp.customers.v1.DeleteCustomerResponse
+ */
+export type DeleteCustomerResponse = Message<"erp.customers.v1.DeleteCustomerResponse"> & {
+};
+
+/**
+ * Describes the message erp.customers.v1.DeleteCustomerResponse.
+ * Use `create(DeleteCustomerResponseSchema)` to create a new message.
+ */
+export const DeleteCustomerResponseSchema: GenMessage<DeleteCustomerResponse> = /*@__PURE__*/
+  messageDesc(file_erp_customers_v1_customers, 8);
+
+/**
  * @generated from enum erp.customers.v1.CustomerStatus
  */
 export enum CustomerStatus {
@@ -250,6 +280,14 @@ export const CustomersService: GenService<{
     methodKind: "unary";
     input: typeof CreateCustomerRequestSchema;
     output: typeof CreateCustomerResponseSchema;
+  },
+  /**
+   * @generated from rpc erp.customers.v1.CustomersService.DeleteCustomer
+   */
+  deleteCustomer: {
+    methodKind: "unary";
+    input: typeof DeleteCustomerRequestSchema;
+    output: typeof DeleteCustomerResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_erp_customers_v1_customers, 0);

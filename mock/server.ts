@@ -75,6 +75,15 @@ const handler = connectNodeAdapter({
         return { customer };
       },
 
+      deleteCustomer(request) {
+        const index = customers.findIndex((item) => item.id === request.id);
+        if (index === -1) {
+          throw new ConnectError(`Customer ${request.id} not found`, Code.NotFound);
+        }
+        customers.splice(index, 1);
+        return {};
+      },
+
       createCustomer(request) {
         const name = request.name.trim();
         const email = request.email.trim();

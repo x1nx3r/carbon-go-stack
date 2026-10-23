@@ -4,6 +4,9 @@ import {
   Button,
   DataTableSkeleton,
   InlineNotification,
+  Modal,
+  OverflowMenu,
+  OverflowMenuItem,
   Pagination,
   Table,
   TableBody,
@@ -15,9 +18,9 @@ import {
   Tag,
   TextInput,
 } from "@carbon/react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { CustomerStatus } from "@/gen/erp/customers/v1/customers_pb";
 import { customersClient } from "@/lib/connect";
 import { formatDate, formatMoney } from "@/lib/format";
@@ -25,6 +28,9 @@ import styles from "./customers-page.module.scss";
 
 const PAGE_SIZE = 20;
 const PAGE_SIZES = [10, 20, 50];
+
+type DeleteTarget = { id: string; name: string };
+type Notice = { kind: "success" | "error"; text: string };
 
 const STATUS: Record<
   CustomerStatus,
@@ -43,6 +49,22 @@ export function CustomersPage() {
   const page = Math.max(1, Number.parseInt(searchParams.get("page") ?? "1", 10) || 1);
   const query = (searchParams.get("q") ?? "").trim();
   const [pending, startTransition] = useTransition();
+  const [pendingDelete, setPendingDelete] = useState<DeleteTarget | null>(null);
+  const [notice, setNotice] = useState<Notice | null>(null);
+  const queryClient = useQueryClient();
+
+  const remove = useMutation({
+    mutationFn: (target: DeleteTarget) =>
+      customersClient.deleteCustomer({ id: target.id }),
+    onSuccess: async (_, target) => {
+      setPendingDelete(null);
+      setNotice({ kind: "success", text: `Deleted ${target.name}.` });
+      await queryClient.invalidateQueries({ queryKey: ["customers"] });
+    },
+    onError: (error) => {
+      setNotice({ kind: "error", text: error.message });
+    },
+  });
 
   const result = useQuery({
     queryKey: ["customers", page, query],
@@ -68,6 +90,14 @@ export function CustomersPage() {
 
   return (
     <>
+      {notice ? (
+        <InlineNotification
+          kind={notice.kind}
+          title={notice.text}
+          onCloseButtonClick={() => setNotice(null)}
+        />
+      ) : null}
+
       <form
           className={styles.search}
           onSubmit={(event) => {
@@ -89,7 +119,7 @@ export function CustomersPage() {
 
         {result.isPending ? (
           <DataTableSkeleton
-            columnCount={5}
+            columnCount={6}
             rowCount={8}
             showToolbar={false}
           />
@@ -123,6 +153,7 @@ export function CustomersPage() {
                     <TableHeader>Status</TableHeader>
                     <TableHeader>Balance</TableHeader>
                     <TableHeader>Created</TableHeader>
+                    <TableHeader>Actions</TableHeader>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -142,6 +173,24 @@ export function CustomersPage() {
                           {formatMoney(customer.balanceMinor, customer.currency)}
                         </TableCell>
                         <TableCell>{formatDate(customer.createdAt)}</TableCell>
+                        <TableCell className="cds--table-column-menu">
+                          <OverflowMenu
+                            aria-label={`Actions for ${customer.name}`}
+                            flipped
+                            size="sm"
+                          >
+                            <OverflowMenuItem
+                              itemText="Delete"
+                              isDelete
+                              onClick={() =>
+                                setPendingDelete({
+                                  id: customer.id,
+                                  name: customer.name,
+                                })
+                              }
+                            />
+                          </OverflowMenu>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -158,6 +207,25 @@ export function CustomersPage() {
             />
           </>
         )}
+
+      <Modal
+        open={Boolean(pendingDelete)}
+        danger
+        modalHeading={
+          pendingDelete ? `Delete ${pendingDelete.name}?` : "Delete customer?"
+        }
+        primaryButtonText={remove.isPending ? "Deleting…" : "Delete"}
+        primaryButtonDisabled={remove.isPending}
+        secondaryButtonText="Cancel"
+        onRequestClose={() => setPendingDelete(null)}
+        onRequestSubmit={() => {
+          if (pendingDelete && !remove.isPending) remove.mutate(pendingDelete);
+        }}
+      >
+        <p className="cds--modal-content__text">
+          This removes the customer record. It cannot be undone.
+        </p>
+      </Modal>
     </>
   );
 }

@@ -54,8 +54,15 @@ message CreateCustomerResponse {
   Customer customer = 1;
 }
 
+message DeleteCustomerRequest {
+  string id = 1;
+}
+
+message DeleteCustomerResponse {}
+
 service CustomersService {
   rpc ListCustomers(ListCustomersRequest) returns (ListCustomersResponse);
   rpc GetCustomer(GetCustomerRequest) returns (GetCustomerResponse);
   rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+  rpc DeleteCustomer(DeleteCustomerRequest) returns (DeleteCustomerResponse);
 }
