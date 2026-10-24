@@ -62,6 +62,7 @@ migrations/                  embedded golang-migrate SQL
 proto/                       source of truth
 gen/                         generated Go + Connect code
 docs/adr/                    decisions
+docs/guidelines/             backend rules and recipes
 ```
 
 The flow is `handler → usecase → port ← postgres`. Gorm types do not escape the

@@ -17,6 +17,9 @@ The Customers service is the worked example. Do not infer the product from it.
 Trivial typo or style fixes are not building; anything that adds or changes
 behaviour needs an ADR.
 
+Read `docs/guidelines/README.md` for the backend rules: layers, domain,
+persistence, Connect, testing, operations and the contract.
+
 ## Layer rules
 
 - `internal/entity` is pure Go. No gorm, proto, HTTP or adapter imports.
