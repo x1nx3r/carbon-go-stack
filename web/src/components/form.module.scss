@@ -1,0 +1,15 @@
+.form {
+  max-inline-size: 40rem;
+}
+
+@media (width <= 41.99rem) {
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .actions > :global(.cds--btn) {
+    inline-size: 100%;
+    max-inline-size: none;
+  }
+}

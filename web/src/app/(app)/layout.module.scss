@@ -1,0 +1,23 @@
+@use "@carbon/react/scss/spacing" as spacing;
+
+.main {
+  min-block-size: 100vh;
+
+  // Carbon's header is fixed and 3rem tall; add a real gap below it.
+  padding-block: calc(#{spacing.$spacing-09} + #{spacing.$spacing-07})
+    spacing.$spacing-07;
+}
+
+.skip {
+  position: absolute;
+  inset-block-start: -100%;
+  inset-inline-start: spacing.$spacing-05;
+  z-index: 9999;
+  padding: spacing.$spacing-03 spacing.$spacing-05;
+  background: var(--cds-layer);
+  color: var(--cds-text-primary);
+}
+
+.skip:focus {
+  inset-block-start: 0;
+}

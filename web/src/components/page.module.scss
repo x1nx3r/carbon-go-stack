@@ -1,0 +1,39 @@
+@use "@carbon/react/scss/spacing" as spacing;
+@use "@carbon/react/scss/type" as type;
+
+.title {
+  @include type.type-style("heading-05");
+
+  margin: 0;
+}
+
+.description {
+  @include type.type-style("body-01");
+
+  color: var(--cds-text-secondary);
+  margin: 0;
+  max-inline-size: 46rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacing.$spacing-05;
+}
+
+.column {
+  min-inline-size: 0;
+}
+
+.content {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+@media (width <= 41.99rem) {
+  .actions :global(.cds--link) {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+}
