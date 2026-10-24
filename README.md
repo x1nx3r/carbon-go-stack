@@ -1,7 +1,8 @@
 # Next + Carbon
 
-The frontend half of an ERP template pair: Next.js + Carbon here, a separate
-backend (hexagonal monolith, Connect/gRPC) that owns the domain. This
+The frontend half of an ERP template pair: Next.js + Carbon here, and
+[backend-monolithrepo](https://github.com/x1nx3r/backend-monolithrepo), a
+hexagonal Go monolith that owns the domain. This
 repository is what a session clones at summon; it carries the app, its
 standards and its agent instructions, not the environment.
 
