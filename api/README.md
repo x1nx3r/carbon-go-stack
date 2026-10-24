@@ -23,6 +23,9 @@ make seed        # 23 fixture customers, same IDs as the frontend mock
 make run-api     # http://127.0.0.1:8080
 ```
 
+`make db-up` is for a host checkout. Inside a manus session the template start
+hook starts PostgreSQL automatically; skip it there.
+
 Point the frontend at it:
 
 ```sh

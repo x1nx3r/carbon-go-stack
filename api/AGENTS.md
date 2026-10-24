@@ -78,6 +78,9 @@ Run these from the repository root.
 | Regenerate both sides | `make generate` |
 | Throwaway DB | `make db-up` / `make db-down` |
 
+`make db-up` is for a host checkout. Inside a manus session the template start
+hook starts PostgreSQL automatically; skip it there.
+
 ## Before you say done
 
 - `make lint` and `make test` pass.
