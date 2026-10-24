@@ -60,10 +60,15 @@ const handler = connectNodeAdapter({
         const pageSize =
           request.pageSize > 0 ? Math.min(request.pageSize, 100) : 20;
         const start = (page - 1) * pageSize;
+        // Match the backend: newest first, id ascending as the tie-breaker.
+        const sorted = [...matches].sort(
+          (a, b) =>
+            b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id),
+        );
 
         return {
-          customers: matches.slice(start, start + pageSize),
-          total: matches.length,
+          customers: sorted.slice(start, start + pageSize),
+          total: sorted.length,
         };
       },
 

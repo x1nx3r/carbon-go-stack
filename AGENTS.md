@@ -27,6 +27,7 @@ behaviour needs an ADR.
 |---|---|
 | Run the app | `npm run dev` |
 | Run the mock API | `npm run mock` |
+| Sync the backend contract | `npm run api:sync` |
 | Regenerate from proto | `npm run api:generate` |
 | Lint (ESLint + stylelint) | `npm run lint` |
 | Types | `npm run typecheck` |
@@ -59,8 +60,9 @@ patterns and icons/themes/motion. `erp-domain` carries the vocabulary.
    Carbon fonts come from IBM's CDN; do not add local font files.
 6. **List state lives in the URL** — page, filters, search, page size — not in
    component state. Shareable screens are part of the ERP contract.
-7. **Never edit generated code.** `src/gen` comes from `buf generate` on the
-   protobuf contract. Change the proto, regenerate, and use the new type.
+7. **Never edit generated code.** The backend owns `proto/`; run
+   `npm run api:sync` to copy it here, then `npm run api:generate`. `src/gen`
+   is generated; change the contract on the backend side, never in place.
 
 If a task truly cannot be solved in the backend, stop and state why. The Node
 Connect transport is the one reviewed exception, for a server-rendered read

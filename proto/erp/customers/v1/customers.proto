@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package erp.customers.v1;
 
+option go_package = "erp-api/gen/erp/customers/v1;customersv1";
+
 // The golden slice of the ERP template: a small, neutral customer record.
 // The backend implements this service; the web consumes it over Connect.
 

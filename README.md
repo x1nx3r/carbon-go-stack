@@ -43,8 +43,9 @@ client component ── Connect ──► /api/<service>/<method> ──► BFF 
 - `src/lib/connect.ts` creates the typed client against the same-origin BFF.
 - `src/app/api/[...path]/route.ts` forwards the bytes; it does not decode
   messages or know RPC names.
-- `src/gen/` is generated from `proto/` with `npm run api:generate`. Never
-  edit it.
+- `proto/` is a pinned copy of the backend contract. Run `npm run api:sync`
+  first (source defaults to `../backend-monolithrepo/proto`; override with
+  `CONTRACT_DIR`), then `npm run api:generate`. Never edit `src/gen/`.
 
 ## Boundaries
 
