@@ -1,8 +1,9 @@
 # backend-mono(lith)repo
 
 The backend half of the ERP template pair: a single Go service that owns the
-domain, the database and the protobuf contract. The frontend is `next-carbon`;
-it is a client-only Next app that speaks Connect through its BFF.
+domain, the database and the protobuf contract. The frontend is
+[next-carbon](https://github.com/x1nx3r/next-carbon); it is a client-only Next
+app that speaks Connect through its BFF.
 
 ## Stack
 
