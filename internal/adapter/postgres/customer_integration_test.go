@@ -52,6 +52,9 @@ func TestCustomerRepositoryRoundTrip(t *testing.T) {
 	if err := repo.Update(ctx, got); err != nil {
 		t.Fatalf("update: %v", err)
 	}
+	if err := repo.Update(ctx, got); err != nil {
+		t.Fatalf("unchanged update must succeed: %v", err)
+	}
 	page, err := repo.List(ctx, port.ListQuery{Page: 1, PageSize: 10, Search: "Integration Test Updated"})
 	if err != nil {
 		t.Fatalf("list: %v", err)

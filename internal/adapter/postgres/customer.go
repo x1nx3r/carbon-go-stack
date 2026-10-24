@@ -94,7 +94,18 @@ func (r *CustomerRepository) Update(ctx context.Context, customer entity.Custome
 		return fmt.Errorf("update customer: %w", result.Error)
 	}
 	if result.RowsAffected == 0 {
-		return port.ErrNotFound
+		// Postgres reports zero rows when the update is a no-op, so existence
+		// is the check, not the changed-row count.
+		var count int64
+		if err := r.db.WithContext(ctx).
+			Model(&customerRow{}).
+			Where("id = ?", customer.ID).
+			Count(&count).Error; err != nil {
+			return fmt.Errorf("check customer: %w", err)
+		}
+		if count == 0 {
+			return port.ErrNotFound
+		}
 	}
 	return nil
 }
