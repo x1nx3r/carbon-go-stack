@@ -66,6 +66,8 @@ Do not copy the proto into `web/`; there is no sync step.
    layer rules in `api/AGENTS.md`.
 5. **No secrets in the repository.** Secrets are injected at summon. The image
    and the source carry names only.
-6. **The source is cloned at summon.** Do not bake it into the template image.
+6. **The source is cloned at summon.** The root `Dockerfile` adds Go and
+   PostgreSQL; `start.sh` starts the local database. Do not bake source into
+   the image.
 7. **Before you say done:** `make lint`, `make test`, and the affected web
    checks pass. If the contract changed, both generations ran.

@@ -1,0 +1,4 @@
+# The image carries only the environment. Source is cloned at summon.
+*
+!Dockerfile
+!start.sh

@@ -10,9 +10,9 @@ A full-stack ERP template in one repository:
 The template is a scaffold. A team forks it, owns it, and changes it. The
 image is the environment; this repository is the source and the standard.
 
-Status: the source merge is complete. The root template manifest and
-environment Dockerfile land with the environment step; the tree currently runs
-on the host.
+Status: source and environment are one repository. The template image adds Go
+and PostgreSQL; the start hook brings PostgreSQL up inside the session. The
+source is cloned at summon.
 
 ## Run
 
@@ -28,6 +28,10 @@ make run-api                 # http://127.0.0.1:8080
 # frontend, in another shell
 API_URL=http://127.0.0.1:8080 npm --prefix web run dev
 ```
+
+`make db-up` is for a host checkout. Inside a manus session the template start
+hook starts PostgreSQL on `127.0.0.1:55432` automatically; skip `make db-up`
+there.
 
 `make db-down` removes the throwaway database. Without a backend, the web app
 can run against its mock:

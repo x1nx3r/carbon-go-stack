@@ -1,0 +1,25 @@
+apiVersion: manus-dei/v1
+name: carbon-go-stack
+# Layer 0 pin. Rebuild this after the base entrypoint changes that add the
+# template hook and private-repo clone support.
+base: manus-dei/base@sha256:9b08b23a02734159e268866c2d13385f21faaaf291896ab86a1fb0d70930c852
+platform: linux/amd64
+# The template repository is the sole workspace repository (ADR-022). Summon
+# resolves its origin and commit; the manifest declares no repos list.
+workspace: template
+toolchain:
+  - node@22
+  - go@1.25
+  - postgresql@18
+opencode:
+  mode: connect
+  model: opencode/glm-5.3-flash
+resources:
+  cpus: "4"
+  memory: 6g
+  pids: 1024
+secrets:
+  # Model provider (OpenCode Zen). Injected at summon, never baked.
+  - OPENCODE_API_KEY
+  # Scoped read token for the private template repository clone.
+  - MANUS_GIT_TOKEN
