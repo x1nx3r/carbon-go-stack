@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package erp.customers.v1;
+
+option go_package = "erp-api/gen/erp/customers/v1;customersv1";
+
+// The golden slice of the ERP template: a small, neutral customer record.
+// The backend implements this service; the web consumes it over Connect.
+
+enum CustomerStatus {
+  CUSTOMER_STATUS_UNSPECIFIED = 0;
+  CUSTOMER_STATUS_ACTIVE = 1;
+  CUSTOMER_STATUS_ON_HOLD = 2;
+  CUSTOMER_STATUS_ARCHIVED = 3;
+}
+
+message Customer {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  CustomerStatus status = 4;
+  // Money is integer minor units plus a currency code. Never a float.
+  int64 balance_minor = 5;
+  string currency = 6;
+  // RFC 3339, UTC.
+  string created_at = 7;
+}
+
+message ListCustomersRequest {
+  // 1-based.
+  int32 page = 1;
+  int32 page_size = 2;
+  string query = 3;
+}
+
+message ListCustomersResponse {
+  repeated Customer customers = 1;
+  int32 total = 2;
+}
+
+message GetCustomerRequest {
+  string id = 1;
+}
+
+message CreateCustomerRequest {
+  string name = 1;
+  string email = 2;
+  string currency = 3;
+}
+
+message GetCustomerResponse {
+  Customer customer = 1;
+}
+
+message CreateCustomerResponse {
+  Customer customer = 1;
+}
+
+message UpdateCustomerRequest {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string currency = 4;
+}
+
+message UpdateCustomerResponse {
+  Customer customer = 1;
+}
+
+message DeleteCustomerRequest {
+  string id = 1;
+}
+
+message DeleteCustomerResponse {}
+
+service CustomersService {
+  rpc ListCustomers(ListCustomersRequest) returns (ListCustomersResponse);
+  rpc GetCustomer(GetCustomerRequest) returns (GetCustomerResponse);
+  rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+  rpc UpdateCustomer(UpdateCustomerRequest) returns (UpdateCustomerResponse);
+  rpc DeleteCustomer(DeleteCustomerRequest) returns (DeleteCustomerResponse);
+}
