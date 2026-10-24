@@ -18,7 +18,7 @@ fmt:
 lint: fmt vet
 
 generate:
-	PATH="$$PATH:$$(go env GOPATH)/bin" buf generate
+	$(MAKE) -C .. generate-go
 
 tools:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.11

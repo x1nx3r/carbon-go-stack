@@ -21,7 +21,7 @@ truth; when a guideline and the code disagree, fix the guideline.
 |---|---|
 | Architecture decisions | `docs/adr/` |
 | Layer and workflow rules | these docs + `AGENTS.md` |
-| Wire contract | `proto/` and `gen/` |
+| Wire contract | `../contract/` and `gen/` |
 | Runtime behaviour | the code |
 
 ## Non-negotiables

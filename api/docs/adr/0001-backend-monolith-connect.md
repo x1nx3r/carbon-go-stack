@@ -4,8 +4,9 @@ Status: accepted · Date: 2026-10-24
 
 ## Context
 
-The template is a pair: `next-carbon` (Next.js + Carbon) and this backend. The
-backend owns the domain, persistence and the protobuf contract. The frontend is
+The template is one repository: `web/` (Next.js + Carbon) and `api/` (this
+backend). The backend owns the domain and persistence; the protobuf contract
+is canonical at the repository root, in `contract/`. The frontend is
 client-only and reaches the backend through a single BFF; it never holds
 business rules.
 
@@ -30,8 +31,9 @@ consumer.
 4. **Postgres + gorm in the adapter.** `golang-migrate` owns the schema through
    embedded SQL migrations. Gorm types never leave the adapter and
    `AutoMigrate` is forbidden.
-5. **The proto is canonical here.** The frontend pins a copy and regenerates its
-   TypeScript; the contract is the only integration surface.
+5. **The contract is canonical at the repository root.** `contract/` is the one
+   proto tree; both `web/` and `api/` generate from it. There is no copied
+   contract and no sync step.
 6. **Auth is deferred.** The service binds loopback in development and has no
    public exposure. A later ADR defines the auth interceptor, caller identity
    and cookie/token transport through the BFF.
@@ -42,8 +44,8 @@ consumer.
 
 - The layering is enforced by imports and review; unit tests use fakes at the
   port boundary, integration tests use the real Postgres.
-- Contract changes require regeneration on both sides; a hash/drift check is
-  part of the pair workflow.
+- Contract changes require regeneration on both sides; one root `make
+  generate` owns the generator for both.
 - No REST consumers exist, so HTTP verbs and OpenAPI stop being contract
   concerns. The cost is that non-Connect clients need a generated client or a
   future gateway.

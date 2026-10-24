@@ -1,9 +1,9 @@
-# backend-mono(lith)repo
+# Go backend (`api/`)
 
-The backend half of the ERP template pair: a single Go service that owns the
-domain, the database and the protobuf contract. The frontend is
-[next-carbon](https://github.com/x1nx3r/next-carbon); it is a client-only Next
-app that speaks Connect through its BFF.
+The backend of the merged ERP template: a single Go service that owns the
+domain and the database. The frontend is `web/`, a client-only Next app that
+speaks Connect through its BFF. The protobuf contract is canonical at the
+repository root, in `contract/`.
 
 ## Stack
 
@@ -15,36 +15,37 @@ app that speaks Connect through its BFF.
 
 ## Run
 
+From the repository root:
+
 ```sh
 make db-up       # throwaway Postgres on 127.0.0.1:55432, no volume
 make seed        # 23 fixture customers, same IDs as the frontend mock
-make run         # http://127.0.0.1:8080
+make run-api     # http://127.0.0.1:8080
 ```
 
 Point the frontend at it:
 
 ```sh
-# in next-carbon
-npm run api:sync                 # copy this proto into the frontend
-API_URL=http://127.0.0.1:8080 npm run dev
+API_URL=http://127.0.0.1:8080 npm --prefix web run dev
 ```
 
-`make db-down` removes the database and its data. There is deliberately no
-Dockerfile yet; the backend currently runs as a host process beside the
-throwaway database.
+`make db-down` removes the database and its data. The backend runs as a host
+process beside the throwaway database. The template environment image provides
+Go and PostgreSQL when the session runs it.
 
 ## Contract
 
-`proto/erp/customers/v1/customers.proto` is canonical here. The frontend keeps
-a pinned copy and regenerates its TypeScript from it; the backend generates the
-Go messages and Connect handler:
+`../contract/erp/customers/v1/customers.proto` is canonical. The frontend
+generates its TypeScript from the same file; the backend generates the Go
+messages and Connect handler. Run from the repository root:
 
 ```sh
-make generate
+make generate          # both sides
+make generate-go       # Go only
 ```
 
-Generated code lives in `gen/` and is committed, so a clone builds without
-running `buf`. `make tools` installs the two plugins if needed.
+Generated Go lives in `gen/` and is committed, so a clone builds without
+running `buf`. `make -C api tools` installs the two Go plugins if needed.
 
 ## Layout
 
@@ -59,7 +60,6 @@ internal/
   handler/connecthandler/    Connect service, mapping, error codes
   xmodule/                   config, logger, wiring, HTTP server
 migrations/                  embedded golang-migrate SQL
-proto/                       source of truth
 gen/                         generated Go + Connect code
 docs/adr/                    decisions
 docs/guidelines/             backend rules and recipes
@@ -70,13 +70,15 @@ adapter; proto types do not enter the usecase.
 
 ## Commands
 
+Run these from the repository root.
+
 | What | Command |
 |---|---|
-| Run | `make run` |
+| Run | `make run-api` |
 | Seed | `make seed` |
 | Unit tests | `make test` |
 | Format + vet | `make lint` |
-| Regenerate | `make generate` |
+| Regenerate both sides | `make generate` |
 | Dev database | `make db-up` / `make db-down` |
 
 ## State

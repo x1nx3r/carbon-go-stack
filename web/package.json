@@ -1,5 +1,5 @@
 {
-  "name": "next-carbon",
+  "name": "carbon-go-stack-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,11 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint && npm run lint:styles",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "lint:styles": "stylelint \"src/**/*.scss\"",
-    "api:generate": "buf generate",
-    "mock": "tsx mock/server.ts",
-    "api:sync": "sh scripts/sync-contract.sh"
+    "api:generate": "make -C .. generate-web",
+    "mock": "tsx mock/server.ts"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.16.0",

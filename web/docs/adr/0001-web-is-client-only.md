@@ -4,11 +4,11 @@ Status: accepted · Date: 2026-10-24
 
 ## Context
 
-The ERP template is two repositories: a Next.js + Carbon frontend and a
-backend that owns the domain (hexagonal monolith, Connect/gRPC). The web
-consumes the backend through the protobuf contract: `buf generate` produces
-the message types and service descriptors, and the browser uses those with
-the Connect client.
+The ERP template is one repository: `web/` (Next.js + Carbon) and `api/`
+(the Go backend that owns the domain). The web consumes the backend through
+the protobuf contract at the repository root: `buf generate` produces the
+message types and service descriptors, and the browser uses those with the
+Connect client.
 
 Two forces make the boundary easy to blur. Next.js offers Server Components,
 Server Actions, route handlers and request-scoped APIs. Agents, given a task,
@@ -77,6 +77,7 @@ BFF, not web-side session logic.
   stores, a separate absolute base URL, provider placement per page, and
   serializing the cache through RSC props. Too many sharp edges for agents.
 - **Server Actions for mutations.** Rejected: it puts domain logic on the web
-  side and bypasses the protobuf contract, so the two repos drift.
+  side and bypasses the protobuf contract, so the contract stops being the one
+  integration surface.
 - **Client-only with no BFF.** Rejected: CORS, token exposure, and a second
   auth story in the browser.

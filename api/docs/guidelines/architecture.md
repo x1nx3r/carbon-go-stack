@@ -23,7 +23,7 @@ Dependencies point inward. A usecase never knows a database exists.
 
 1. **ADR and requirements first.** One ADR in `docs/adr/`; agree on scope,
    states, errors and data.
-2. **Contract.** Add the RPC/messages to `proto/`; `make generate`.
+2. **Contract.** Add the RPC/messages to `../contract/`; `make generate`.
 3. **Domain.** New entity fields/methods and sentinel errors.
 4. **Port.** Add the smallest repository method needed. If the interface grows
    for a second consumer with different needs, split it.

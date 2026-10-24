@@ -1,20 +1,20 @@
 # Contract
 
-Read when changing a message, an RPC, a field number, or syncing the frontend.
+Read when changing a message, an RPC, a field number, or regenerating either
+side.
 
 ## Ownership
 
-- `proto/` in this repo is canonical.
-- The frontend keeps a pinned copy under `proto/` and generates its TypeScript
-  from it.
+- `../contract/` at the repository root is canonical.
+- The frontend generates its TypeScript from the same file; there is no copied
+  proto.
 - The generated Go (`gen/`) is committed so a clone builds without `buf`.
 
 ## Change flow
 
-1. Change the proto here.
-2. `make generate` (Go messages + Connect handler).
-3. In the frontend: `npm run api:sync`, then `npm run api:generate`.
-4. Run both test/build suites.
+1. Change the proto in `../contract/`.
+2. From the repository root, run `make generate` (Go and TypeScript).
+3. Run both test/build suites.
 
 ## Rules
 
@@ -24,11 +24,6 @@ Read when changing a message, an RPC, a field number, or syncing the frontend.
 - Run `buf lint`; run `buf breaking` against the released contract when you
   change it.
 - No OpenAPI/Swagger generation. The proto is the only contract.
-- `gen/` is generated: never edit it by hand.
-- When the two repos disagree, the backend proto wins.
-
-## Compatibility
-
-Additive fields are safe. Renaming a field, changing its type, or changing an
-enum meaning is a breaking change; write an ADR and coordinate the frontend
-release with the backend release.
+- `gen/` and `web/src/gen/` are generated: never edit them by hand.
+- The contract is one file tree; there is no backend/frontend disagreement to
+  resolve.

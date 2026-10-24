@@ -1,8 +1,8 @@
-# backend-mono(lith)repo — agent guide
+# Go backend (`api/`) — agent guide
 
-This is the backend half of an ERP template pair: one Go service that owns the
-domain and the protobuf contract, plus the Next frontend that consumes it over
-Connect.
+This is the backend of `carbon-go-stack`: one Go service that owns the domain
+and the database. The frontend is `web/`; the protobuf contract is canonical at
+the repository root, in `contract/`.
 
 ## This is a template, not the product
 
@@ -45,11 +45,11 @@ persistence, Connect, testing, operations and the contract.
 
 ## Contract
 
-- `proto/` is canonical here. The frontend keeps a pinned copy and regenerates
-  its TypeScript; the two must not drift.
-- `make generate` runs buf. `gen/` is generated: never edit it by hand.
-- The frontend copies this tree with `npm run api:sync`; if you change the proto,
-  tell the frontend side to sync and regenerate.
+- `../contract/` is canonical. The frontend generates its TypeScript from the
+  same file; there is no copied proto and no sync script.
+- `make generate` from the repository root runs both sides. `make generate-go`
+  runs only the Go generators. `gen/` is generated: never edit it by hand.
+- If you change the proto, regenerate both sides and run both suites.
 - Keep field numbers and the `erp.customers.v1` service name stable; run
   `buf breaking` against the released contract when changing it.
 - Auth is later. Do not invent a protected endpoint until the auth ADR defines
@@ -67,13 +67,15 @@ persistence, Connect, testing, operations and the contract.
 
 ## Commands
 
+Run these from the repository root.
+
 | What | Command |
 |---|---|
-| Run | `make run` |
+| Run | `make run-api` |
 | Seed | `make seed` |
 | Unit tests | `make test` |
 | Format + vet | `make lint` |
-| Regenerate | `make generate` |
+| Regenerate both sides | `make generate` |
 | Throwaway DB | `make db-up` / `make db-down` |
 
 ## Before you say done
@@ -81,5 +83,5 @@ persistence, Connect, testing, operations and the contract.
 - `make lint` and `make test` pass.
 - Integration/E2E paths were exercised against the real Postgres, not only the
   fake repository.
-- If the proto changed, the frontend copy was synced and both sides regenerate.
+- If the proto changed, both sides were regenerated and both suites ran.
 - If a rule changed, update the ADR or this guide.

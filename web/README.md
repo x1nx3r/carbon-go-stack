@@ -1,10 +1,11 @@
-# Next + Carbon
+# Next + Carbon (`web/`)
 
-The frontend half of an ERP template pair: Next.js + Carbon here, and
-[backend-monolithrepo](https://github.com/x1nx3r/backend-monolithrepo), a
-hexagonal Go monolith that owns the domain. This
-repository is what a session clones at summon; it carries the app, its
-standards and its agent instructions, not the environment.
+The frontend of `carbon-go-stack`: a Next.js + Carbon app that renders the ERP
+screens. The backend is in `../api/`, a hexagonal Go monolith that owns the
+domain. The protobuf contract is canonical at `../contract/`.
+
+This directory is not a separate repository. A session clones the whole
+template; `web/` and `api/` share one commit and one contract.
 
 ## Stack
 
@@ -27,9 +28,14 @@ npm run mock
 npm run dev
 ```
 
-The BFF reads `API_URL` (default `http://127.0.0.1:4010`, the mock). Copy
-`.env.example` to `.env.local` and point it at the real backend when you have
-one.
+From the repository root, use `npm --prefix web install` and `npm --prefix web
+run dev`. The BFF reads `API_URL` (default `http://127.0.0.1:4010`, the mock).
+Copy `.env.example` to `.env.local` and point it at the real backend when you
+have one:
+
+```sh
+API_URL=http://127.0.0.1:8080 npm run dev
+```
 
 `IBM_TELEMETRY_DISABLED=true` suppresses the install-time metric from
 `@ibm/plex-serif`. Inside a container it would otherwise be treated as CI and
@@ -44,9 +50,9 @@ client component ── Connect ──► /api/<service>/<method> ──► BFF 
 - `src/lib/connect.ts` creates the typed client against the same-origin BFF.
 - `src/app/api/[...path]/route.ts` forwards the bytes; it does not decode
   messages or know RPC names.
-- `proto/` is a pinned copy of the backend contract. Run `npm run api:sync`
-  first (source defaults to `../backend-monolithrepo/proto`; override with
-  `CONTRACT_DIR`), then `npm run api:generate`. Never edit `src/gen/`.
+- `../contract/` is canonical. Run `make generate` from the repository root;
+  it regenerates both `src/gen/` here and the Go code in `../api/gen/`. Never
+  edit `src/gen/`.
 
 ## Boundaries
 
@@ -89,22 +95,14 @@ src/components/                shared UI + providers; page.tsx owns composition
 src/gen/                       generated protobuf types/service (never edit)
 src/lib/connect.ts             typed Connect client
 src/lib/format.ts              money, dates
-proto/                         the contract this repo generates from
 mock/                          dev-only CustomersService implementation
 eslint-rules/                  local lint rules (Tailwind class names)
 docs/adr/                      architecture decisions
 docs/carbon/                   agent guidance + vendored Carbon source
 docs/visual/                  1440 + 390 px baselines + spacing contract
 .opencode/skills/              agent skills loaded on demand
-AGENTS.md                      standards for agents working in this repo
+AGENTS.md                      standards for agents working in this tree
 ```
 
-## Turning it into a manus template
-
-1. Push this repository and its backend pair; template repos stay their own
-   repos.
-2. Add `templates/<name>/template.yaml` in manus-dei with both repos under
-   `repos:` (`strategy: clone-at-summon`), the model, resources and secret
-   names. The manifest is the workspace roster.
-3. Keep per-repo standards here: `AGENTS.md`, `opencode.json`, `.opencode/`.
-   The image is the environment; this repo is the standard.
+The canonical contract is `../contract/`. The Go backend is `../api/`. The
+repository root owns the template manifest, environment, and shared commands.

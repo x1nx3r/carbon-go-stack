@@ -1,8 +1,8 @@
-# Next + Carbon — agent guide
+# Next + Carbon (`web/`) — agent guide
 
-This is the frontend half of an internal ERP template: this repo (Next.js +
-Carbon) and a separate backend (hexagonal monolith, Connect/gRPC) that owns
-the domain. The web app renders; the backend decides.
+This is the frontend of `carbon-go-stack`: this tree (Next.js + Carbon) and the
+Go backend in `../api/`, in one repository. The web app renders; the backend
+decides. The protobuf contract is canonical at `../contract/`.
 
 ## This is a template repository, not the product
 
@@ -27,8 +27,7 @@ behaviour needs an ADR.
 |---|---|
 | Run the app | `npm run dev` |
 | Run the mock API | `npm run mock` |
-| Sync the backend contract | `npm run api:sync` |
-| Regenerate from proto | `npm run api:generate` |
+| Regenerate from the contract | `npm run api:generate` |
 | Lint (ESLint + stylelint) | `npm run lint` |
 | Types | `npm run typecheck` |
 | Production build | `npm run build` |
@@ -60,9 +59,10 @@ patterns and icons/themes/motion. `erp-domain` carries the vocabulary.
    Carbon fonts come from IBM's CDN; do not add local font files.
 6. **List state lives in the URL** — page, filters, search, page size — not in
    component state. Shareable screens are part of the ERP contract.
-7. **Never edit generated code.** The backend owns `proto/`; run
-   `npm run api:sync` to copy it here, then `npm run api:generate`. `src/gen`
-   is generated; change the contract on the backend side, never in place.
+7. **Never edit generated code.** The contract is canonical at `../contract/`;
+   run `npm run api:generate` (or `make -C .. generate`) to regenerate both
+   sides. `src/gen` is generated; change the contract at the root, never in
+   place.
 
 If a task truly cannot be solved in the backend, stop and state why. The Node
 Connect transport is the one reviewed exception, for a server-rendered read
@@ -85,8 +85,8 @@ implementation detail.
 
 ## Adding a data screen
 
-1. The backend implements the RPC and the proto changes.
-2. Regenerate: `npm run api:generate`.
+1. The backend implements the RPC and the contract changes in `../contract/`.
+2. Regenerate both sides: `npm run api:generate` or `make -C .. generate`.
 3. Build the client component with `useQuery` and the typed client; keep the
    page a shell.
 4. Handle loading, empty and error states with Carbon components.
@@ -94,7 +94,7 @@ implementation detail.
 
 ## Before you say done
 
-- `npm run api:generate` if a proto changed, then `npm run lint`,
+- `npm run api:generate` if the contract changed, then `npm run lint`,
   `npm run typecheck`, `npm run build`
 - Open the affected routes; no console errors; screenshot UI changes.
 - Measure layout: header→title 32 px, title→description 16 px, blocks 32 px;
