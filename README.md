@@ -59,13 +59,14 @@ Lint enforces the shape: no Server Actions, no `"use client"` in pages or
 layouts, no `fetch` outside the BFF, no `next/headers`, no `connect-node` in
 `src/`, no Tailwind or other UI kits, no raw hex colors.
 
-## Layout
+## Page composition
 
 Pages use `Page` (`src/components/page.tsx`), which owns the grid, the title
 block and the block rhythm. The shell owns the fixed-header offset. The
 measured contract — header→title 32 px, title→description 16 px, blocks
 32 px — lives in `.opencode/skills/carbon-ui/SKILL.md`; the reference
-screenshots live in `docs/visual/`. Never hand-roll shell padding in a page.
+screenshots live in `docs/visual/` at 1440 and 390 px. Never hand-roll shell
+padding in a page.
 
 ## Theme
 
@@ -76,11 +77,11 @@ The theme is one class on `<body>` in `src/app/layout.tsx`:
 Carbon tokens come from that class; components do not need their own theme
 wrapper unless a region differs.
 
-## Layout
+## Structure
 
 ```
 src/app/(app)/                 shell + pages (server components)
-src/app/(app)/customers/       golden slice: list, with _components/
+src/app/(app)/customers/       golden slice: list, create and edit
 src/app/api/[...path]/         BFF transport proxy
 src/components/                shared UI + providers; page.tsx owns composition
 src/gen/                       generated protobuf types/service (never edit)
@@ -90,7 +91,8 @@ proto/                         the contract this repo generates from
 mock/                          dev-only CustomersService implementation
 eslint-rules/                  local lint rules (Tailwind class names)
 docs/adr/                      architecture decisions
-docs/visual/                  1440px baselines + the spacing contract
+docs/carbon/                   agent guidance + vendored Carbon source
+docs/visual/                  1440 + 390 px baselines + spacing contract
 .opencode/skills/              agent skills loaded on demand
 AGENTS.md                      standards for agents working in this repo
 ```

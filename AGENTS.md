@@ -4,11 +4,39 @@ This is the frontend half of an internal ERP template: this repo (Next.js +
 Carbon) and a separate backend (hexagonal monolith, Connect/gRPC) that owns
 the domain. The web app renders; the backend decides.
 
+## This is a template repository, not the product
+
+The Customers slice is an example, not the app. Do not infer the product from
+it.
+
+Before building anything:
+
+1. **Ask the user what they are building** and what the requirements are. If
+   the request is vague, ask; do not guess a domain or a feature set.
+2. Discuss scope, data, states and constraints with the user.
+3. **Write an ADR in `docs/adr/` first** (next number), covering the decision,
+   scope and consequences; get agreement before coding.
+4. Implement after that, one concern per patch.
+
+Trivial typo or style fixes are not building; anything that adds or changes
+behaviour needs an ADR.
+
+## Commands
+
+| What | Command |
+|---|---|
+| Run the app | `npm run dev` |
+| Run the mock API | `npm run mock` |
+| Regenerate from proto | `npm run api:generate` |
+| Lint (ESLint + stylelint) | `npm run lint` |
+| Types | `npm run typecheck` |
+| Production build | `npm run build` |
+
 Read `docs/adr/0001-web-is-client-only.md` before touching data fetching or
 anything under `src/app`. Load `.opencode/skills/web-boundaries` for the
 decision tree, `carbon-ui` for layout numbers, and `docs/carbon/README.md`
-for component choice, tables, forms, feedback, accessibility, content and
-patterns. `erp-domain` carries the vocabulary.
+for component choice, tables, forms, feedback, accessibility, content,
+patterns and icons/themes/motion. `erp-domain` carries the vocabulary.
 
 ## Hard rules
 
@@ -29,8 +57,8 @@ patterns. `erp-domain` carries the vocabulary.
    spacing or type. Use Carbon components and Carbon spacing/type mixins.
    Build screens with `Page` and `Stack`; the shell owns the header offset.
    Carbon fonts come from IBM's CDN; do not add local font files.
-6. **List state lives in the URL** — page, filters, search — not in component
-   state. Shareable screens are part of the ERP contract.
+6. **List state lives in the URL** — page, filters, search, page size — not in
+   component state. Shareable screens are part of the ERP contract.
 7. **Never edit generated code.** `src/gen` comes from `buf generate` on the
    protobuf contract. Change the proto, regenerate, and use the new type.
 
@@ -68,7 +96,8 @@ implementation detail.
   `npm run typecheck`, `npm run build`
 - Open the affected routes; no console errors; screenshot UI changes.
 - Measure layout: header→title 32 px, title→description 16 px, blocks 32 px;
-  compare with `docs/visual/*.png` at 1440 px.
+  compare with `docs/visual/*.png` at 1440 px and 390 px. Check mobile actions
+  and that the page does not scroll horizontally.
 - If you touched a rule, update the ADR or skill that states it.
 
 <!-- BEGIN:nextjs-agent-rules -->
