@@ -28,6 +28,9 @@ api/coverage.out
 web/*.tsbuildinfo
 web/next-env.d.ts
 
+# Session runtime state (the workspace root is the repository, ADR-024)
+/.manus/
+
 # Misc
 .DS_Store
 *.pem

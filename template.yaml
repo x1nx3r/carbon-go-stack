@@ -2,10 +2,11 @@ apiVersion: manus-dei/v1
 name: carbon-go-stack
 # Layer 0 pin. Rebuild this after the base entrypoint changes that add the
 # template hook and clone-at-commit support.
-base: manus-dei/base@sha256:0e569f125a33788b37d0e0fede12d68d581eb0835d2be6556fcd6c0fc0e90e87
+base: manus-dei/base@sha256:1e22fa7ded24faa8921222251cff1b4b2066ea4f735252865084779df98f380e
 platform: linux/amd64
-# The template repository is the sole workspace repository (ADR-022). Summon
-# resolves its origin and commit; the manifest declares no repos list.
+# The template repository is the sole workspace repository and is cloned at
+# the workspace root (ADR-024). Summon resolves its origin and commit; the
+# manifest declares no repos list.
 workspace: template
 toolchain:
   - node@22

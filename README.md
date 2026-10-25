@@ -12,7 +12,9 @@ image is the environment; this repository is the source and the standard.
 
 Status: source and environment are one repository. The template image adds Go
 and PostgreSQL; the start hook brings PostgreSQL up inside the session. The
-source is cloned at summon.
+source is cloned at summon into the workspace root, so the session cwd is this
+repository and `.git` lives at the root. PostgreSQL state lives in `.manus/`,
+which the repository ignores.
 
 ## Run
 
@@ -85,6 +87,7 @@ docs/adr/     cross-cutting template decisions
 Makefile      root commands and code generation
 buf.yaml      contract module
 buf.gen.*.yaml  Go and TypeScript generators
+.manus/       session runtime state (ignored; created by start.sh)
 ```
 
 Per-tree agent guides: `web/AGENTS.md` and `api/AGENTS.md`. The root

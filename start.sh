@@ -1,7 +1,8 @@
 #!/bin/bash
 # Start the template's local PostgreSQL. The base entrypoint invokes this
-# before opencode; the data lives on the project workspace volume, outside
-# the source checkout.
+# before opencode; the data lives on the project workspace volume under the
+# repository root. The repository ignores /.manus/ (ADR-024), so this state
+# survives container recreation without making the checkout dirty.
 set -euo pipefail
 
 PGBIN=/usr/lib/postgresql/18/bin
