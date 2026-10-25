@@ -11,7 +11,10 @@ Before you build:
 1. Ask the user what they are building and what the requirements are.
 2. Discuss scope, data, states, and constraints.
 3. Write an ADR in the relevant `docs/adr/` first.
-4. Implement after agreement, one concern per patch.
+4. Set the goal and ask the human to authorize it. Until then the harness
+   refuses `todowrite` and writes outside `docs/adr/`, `.opencode/scratchpads/`,
+   and `.opencode/plans/`; scoping reads, searches, and questions stay open.
+5. Implement after agreement and authorization, one concern per patch.
 
 Cross-cutting decisions go in `docs/adr/`. Web decisions go in
 `web/docs/adr/`. Backend decisions go in `api/docs/adr/`.
