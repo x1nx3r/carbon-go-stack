@@ -33,9 +33,9 @@ API_URL=http://127.0.0.1:8080 npm --prefix web run dev
 hook starts PostgreSQL on `127.0.0.1:55432` automatically; skip `make db-up`
 there.
 
-The template manifest asks for two secrets at summon: `OPENCODE_API_KEY` for
-the model provider and `MANUS_GIT_TOKEN`, a scoped read token for cloning this
-private repository.
+The template manifest asks for one secret at summon: `OPENCODE_API_KEY` for
+the model provider. The repository is public, so the session clone needs no
+GitHub token.
 
 `make db-down` removes the throwaway database. Without a backend, the web app
 can run against its mock:
