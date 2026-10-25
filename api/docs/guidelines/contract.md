@@ -19,7 +19,7 @@ side.
 ## Rules
 
 - Never reuse or renumber a field; reserve removed numbers/names.
-- Keep the service name `erp.customers.v1.CustomersService` and the package
+- Keep the service name `erp.showcase.v1.ShowcaseService` and the package
   stable.
 - Run `buf lint`; run `buf breaking` against the released contract when you
   change it.

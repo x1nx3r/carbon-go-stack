@@ -19,7 +19,7 @@ sources:
   `DataTable` and its parts.
 - **Simple read-only list** with server-side pagination and URL filters: use
   `Table` primitives plus `Pagination`. This is the template's convention and
-  what `src/app/(app)/customers/_components/customers-page.tsx` does.
+  what `src/design/assemblies/showcase-list.tsx` does.
 - **Key/value, features or pricing comparison:** `StructuredList`, not a table.
 - **Small confined list:** `ContainedList`.
 
@@ -91,8 +91,8 @@ should make sense with zero rows.
 
 ## Mobile
 
-- Hide secondary columns before shrinking the essential ones. In the golden
-  slice, Email and Created are hidden below 42 rem; Name, Status, Balance and
+- Hide secondary columns before shrinking the essential ones. In the design
+  slice, Owner and Updated are hidden below 42 rem; Item, Status, Amount and
   Actions remain.
 - Pin the actions column to the end so row actions stay reachable without
   scrolling.
@@ -103,7 +103,7 @@ should make sense with zero rows.
 
 ## Template conventions
 
-- Amounts are right-aligned; names, emails and dates are left-aligned. Do not
+- Amounts are right-aligned; titles, owners and dates are left-aligned. Do not
   center data columns.
 - List state (page, query, filters, page size) lives in URL search params.
 - Keep the rhythm: toolbar→table and table→pagination are `spacing-06`
@@ -122,7 +122,7 @@ should make sense with zero rows.
 
 - Measure: header→title 32, title→description 16, toolbar→table 24,
   table→pagination 24.
-- Screenshot at 1440 and compare `docs/visual/customers-1440.png`.
+- Screenshot at 1440 and compare `docs/visual/design-1440.png`.
 - Check zero results, a failed request, and a slow request.
 
 ## Sources

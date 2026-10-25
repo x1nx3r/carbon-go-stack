@@ -21,7 +21,7 @@ sources:
   notifications, empty states.
 - Do not use title case or all caps. Capitalize only the first word and proper
   nouns (product/service names).
-- UI elements are not proper nouns: "Create customer", not "Create Customer".
+- UI elements are not proper nouns: "Create item", not "Create Item".
 - Abbreviations are allowed only when familiar; expand on first use or use the
   native `<abbr>` element.
 
@@ -37,10 +37,10 @@ sources:
 
 - Labels are one to three words, sentence case, no trailing colon.
 - Every input has a label. Placeholder text is not a label.
-- Button labels name the action: "Create customer", "Save changes", "Delete
-  customer". Avoid "Submit", "OK", "Done" where a specific verb works.
+- Button labels name the action: "Create item", "Save changes", "Delete
+  item". Avoid "Submit", "OK", "Done" where a specific verb works.
 - Secondary actions name the negative half: "Cancel", "Discard", "Back".
-- Destructive labels say what is destroyed: "Delete customer", not "Remove".
+- Destructive labels say what is destroyed: "Delete item", not "Remove".
 - Link text says the destination or the action, never "Click here".
 
 ## Errors
@@ -54,7 +54,7 @@ sources:
 Examples:
 
 - Good: "Email must include an @ sign."
-- Good: "Could not save the customer. Check your connection and try again."
+- Good: "Could not save the item. Check your connection and try again."
 - Bad: "422 Unprocessable Entity."
 - Bad: "Invalid input."
 

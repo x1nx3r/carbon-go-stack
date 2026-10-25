@@ -12,7 +12,7 @@ validate forms, feedback and the destructive-action pattern.
 
 | Task | Read |
 |---|---|
-| Compose a page, spacing, header offset | `.opencode/skills/carbon-ui/SKILL.md` |
+| Compose a page, spacing, header offset | `../../../.opencode/skills/carbon-ui/SKILL.md` |
 | Pick a component for a job | `choose-a-component.md` |
 | Build a list or data table | `tables.md` |
 | Build a create/edit form | `forms.md` |
@@ -34,7 +34,7 @@ routing above is the entry point.
 | Spacing numbers, `Page`, `Stack` | `carbon-ui` skill |
 | Component props and types | installed TypeScript definitions |
 | When to use what, patterns, states | these docs |
-| ERP vocabulary and formatting | `.opencode/skills/erp-domain` |
+| ERP vocabulary and formatting | `../../../.opencode/skills/erp-domain` |
 | Raw Carbon text | `source/` |
 
 If a fact changes, change its owner and everything that links to it. Do not

@@ -26,7 +26,7 @@ the header offset; `Page` owns the block rhythm. See `carbon-ui`.
 
 - One primary action per page. It goes in the page actions, not floating in the
   content.
-- Actions are sentence case and task-specific ("New customer", not "Add").
+- Actions are sentence case and task-specific ("Create item", not "Add").
 - Page titles are sentence case; the description is one or two short sentences.
 - Do not add a second page-level title inside the content.
 
@@ -62,7 +62,7 @@ Match the confirmation to the impact:
 - After deletion, return to the list, remove the row, and show a success
   notification. If deletion fails, keep the row and show an error with a next
   step.
-- The modal's primary action names the deletion ("Delete customer"), not "OK".
+- The modal's primary action names the deletion ("Delete item"), not "OK".
 - Cancel takes initial focus in a destructive dialog (see `accessibility.md`).
 
 ## Filtering and search

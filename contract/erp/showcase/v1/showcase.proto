@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package erp.showcase.v1;
+
+option go_package = "erp-api/gen/erp/showcase/v1;showcasev1";
+
+// The design slice's one live vertical. It exists to exercise the template's
+// contract, backend layers, and generated client; it is not the product.
+
+enum ShowcaseStatus {
+  SHOWCASE_STATUS_UNSPECIFIED = 0;
+  SHOWCASE_STATUS_ACTIVE = 1;
+  SHOWCASE_STATUS_ON_HOLD = 2;
+  SHOWCASE_STATUS_ARCHIVED = 3;
+}
+
+message ShowcaseItem {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  ShowcaseStatus status = 4;
+  string owner = 5;
+  // Money is integer minor units plus a currency code. Never a float.
+  int64 amount_minor = 6;
+  string currency = 7;
+  repeated string tags = 8;
+  bool done = 9;
+  // RFC 3339, UTC.
+  string created_at = 10;
+  string updated_at = 11;
+}
+
+message ListShowcaseItemsRequest {
+  // 1-based.
+  int32 page = 1;
+  int32 page_size = 2;
+  string query = 3;
+  // Unspecified means every status.
+  ShowcaseStatus status = 4;
+}
+
+message ListShowcaseItemsResponse {
+  repeated ShowcaseItem items = 1;
+  int32 total = 2;
+}
+
+message GetShowcaseItemRequest {
+  string id = 1;
+}
+
+message GetShowcaseItemResponse {
+  ShowcaseItem item = 1;
+}
+
+message CreateShowcaseItemRequest {
+  string title = 1;
+  string description = 2;
+  ShowcaseStatus status = 3;
+  string owner = 4;
+  int64 amount_minor = 5;
+  string currency = 6;
+  repeated string tags = 7;
+  bool done = 8;
+}
+
+message CreateShowcaseItemResponse {
+  ShowcaseItem item = 1;
+}
+
+message UpdateShowcaseItemRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  ShowcaseStatus status = 4;
+  string owner = 5;
+  int64 amount_minor = 6;
+  string currency = 7;
+  repeated string tags = 8;
+  bool done = 9;
+}
+
+message UpdateShowcaseItemResponse {
+  ShowcaseItem item = 1;
+}
+
+message DeleteShowcaseItemRequest {
+  string id = 1;
+}
+
+message DeleteShowcaseItemResponse {}
+
+service ShowcaseService {
+  rpc ListShowcaseItems(ListShowcaseItemsRequest) returns (ListShowcaseItemsResponse);
+  rpc GetShowcaseItem(GetShowcaseItemRequest) returns (GetShowcaseItemResponse);
+  rpc CreateShowcaseItem(CreateShowcaseItemRequest) returns (CreateShowcaseItemResponse);
+  rpc UpdateShowcaseItem(UpdateShowcaseItemRequest) returns (UpdateShowcaseItemResponse);
+  rpc DeleteShowcaseItem(DeleteShowcaseItemRequest) returns (DeleteShowcaseItemResponse);
+}

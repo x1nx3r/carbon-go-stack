@@ -17,7 +17,7 @@ const HOP_BY_HOP = new Set([
 
 async function proxy(request: Request): Promise<Response> {
   const url = new URL(request.url);
-  const base = (process.env.API_URL ?? "http://127.0.0.1:4010").replace(/\/$/, "");
+  const base = (process.env.API_URL ?? "http://127.0.0.1:8080").replace(/\/$/, "");
   const target = base + url.pathname.replace(/^\/api/, "") + url.search;
 
   const headers = new Headers();

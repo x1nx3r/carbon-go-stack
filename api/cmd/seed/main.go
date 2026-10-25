@@ -14,41 +14,30 @@ import (
 )
 
 type fixture struct {
-	id        string
-	name      string
-	email     string
-	status    entity.Status
-	balance   int64
-	currency  string
-	createdAt string
+	id          string
+	title       string
+	description string
+	status      entity.ShowcaseStatus
+	owner       string
+	amount      int64
+	currency    string
+	tags        []string
+	done        bool
+	createdAt   string
 }
 
-// Same 23 records as the frontend mock, including readable IDs, so the UI and
-// its visual baselines can be exercised unchanged against a real database.
+// Readable IDs keep the UI and visual baselines stable.
 var fixtures = []fixture{
-	{"cus_001", "Northwind Supply", "ap@northwind.example", entity.StatusActive, 1245000, "USD", "2026-01-12T09:12:00Z"},
-	{"cus_002", "Sagara Retail", "finance@sagara.example", entity.StatusActive, 318000, "IDR", "2026-01-18T03:45:00Z"},
-	{"cus_003", "Kite & Co", "billing@kite.example", entity.StatusOnHold, 0, "USD", "2026-02-02T11:30:00Z"},
-	{"cus_004", "Meridian Grocers", "ap@meridian.example", entity.StatusActive, 892000, "GBP", "2026-02-11T14:05:00Z"},
-	{"cus_005", "Blue Harbor Logistics", "accounts@blueharbor.example", entity.StatusArchived, 0, "USD", "2025-11-27T08:00:00Z"},
-	{"cus_006", "Tani Makmur", "owner@tanimakmur.example", entity.StatusActive, 145000, "IDR", "2026-03-01T02:20:00Z"},
-	{"cus_007", "Lumen Studio", "hello@lumen.example", entity.StatusActive, 42000, "EUR", "2026-03-14T16:40:00Z"},
-	{"cus_008", "Harbor Point Cafe", "manager@harborpoint.example", entity.StatusOnHold, 210000, "USD", "2026-03-22T10:15:00Z"},
-	{"cus_009", "Sentosa Pharmacy", "ap@sentosa.example", entity.StatusActive, 76000, "IDR", "2026-04-05T06:55:00Z"},
-	{"cus_010", "Cedar & Vine", "accounts@cedarvine.example", entity.StatusActive, 560000, "USD", "2026-04-19T12:10:00Z"},
-	{"cus_011", "Atlas Components", "finance@atlas.example", entity.StatusActive, 1830000, "USD", "2026-05-02T09:05:00Z"},
-	{"cus_012", "Padi Jaya", "admin@padijaya.example", entity.StatusArchived, 0, "IDR", "2025-12-08T04:30:00Z"},
-	{"cus_013", "Ridgeway Parts", "ap@ridgeway.example", entity.StatusActive, 724000, "GBP", "2026-05-21T15:20:00Z"},
-	{"cus_014", "Kopi Tepi Jalan", "owner@kopitepi.example", entity.StatusActive, 102000, "IDR", "2026-06-01T01:45:00Z"},
-	{"cus_015", "Sino Trading", "billing@sinotrading.example", entity.StatusActive, 2490000, "USD", "2026-06-17T07:35:00Z"},
-	{"cus_016", "Fjord Design", "invoice@fjord.example", entity.StatusOnHold, 330000, "EUR", "2026-06-29T13:00:00Z"},
-	{"cus_017", "Matahari Textiles", "ap@matahari.example", entity.StatusActive, 678000, "IDR", "2026-07-03T05:25:00Z"},
-	{"cus_018", "Greyline Services", "finance@greyline.example", entity.StatusActive, 245000, "USD", "2026-07-19T11:55:00Z"},
-	{"cus_019", "Bumi Sejahtera", "owner@bumisejahtera.example", entity.StatusActive, 910000, "IDR", "2026-08-08T03:10:00Z"},
-	{"cus_020", "Kingsway Hardware", "ap@kingsway.example", entity.StatusArchived, 0, "GBP", "2026-01-30T10:40:00Z"},
-	{"cus_021", "Orchard Bakes", "hello@orchardbakes.example", entity.StatusActive, 89000, "USD", "2026-08-22T08:15:00Z"},
-	{"cus_022", "Delta Marine", "accounts@deltamarine.example", entity.StatusActive, 1360000, "USD", "2026-09-04T14:50:00Z"},
-	{"cus_023", "Warung Sederhana", "owner@warung.example", entity.StatusOnHold, 31000, "IDR", "2026-09-21T02:05:00Z"},
+	{"show_001", "Atlas migration", "Move the ledger to the new schema.", entity.ShowcaseStatusActive, "Platform", 1245000, "USD", []string{"backend", "migration"}, false, "2026-09-01T08:00:00Z"},
+	{"show_002", "Carbon spacing audit", "Check page rhythm against the design catalogue.", entity.ShowcaseStatusOnHold, "Design", 0, "USD", []string{"frontend", "tokens"}, false, "2026-09-03T09:30:00Z"},
+	{"show_003", "Quarterly access review", "Review the analyst group and its scopes.", entity.ShowcaseStatusActive, "Security", 42000, "EUR", []string{"access", "review"}, false, "2026-09-08T10:15:00Z"},
+	{"show_004", "Invoice reconciliation", "Match the September export with the ledger.", entity.ShowcaseStatusActive, "Finance", 892000, "GBP", []string{"finance", "import"}, false, "2026-09-12T14:20:00Z"},
+	{"show_005", "Onboarding guide", "First draft for the support team.", entity.ShowcaseStatusArchived, "Support", 0, "USD", []string{"docs"}, true, "2026-09-18T16:45:00Z"},
+	{"show_006", "Vendor risk pass", "Score the five new vendors.", entity.ShowcaseStatusActive, "Operations", 210000, "USD", []string{"risk", "vendors"}, false, "2026-09-21T11:05:00Z"},
+	{"show_007", "Browser preview polish", "Fix the empty state and the action column.", entity.ShowcaseStatusOnHold, "Product", 76000, "USD", []string{"frontend", "preview"}, false, "2026-09-25T13:10:00Z"},
+	{"show_008", "Data retention policy", "Approve the 24-month retention rule.", entity.ShowcaseStatusArchived, "Legal", 0, "USD", []string{"policy", "data"}, true, "2026-10-01T07:55:00Z"},
+	{"show_009", "Ship the design slice", "Connect the gallery to the live showcase API.", entity.ShowcaseStatusActive, "Platform", 1830000, "USD", []string{"backend", "frontend", "design"}, false, "2026-10-03T09:20:00Z"},
+	{"show_010", "Seed fixture review", "Keep the showcase examples varied and stable.", entity.ShowcaseStatusActive, "Design", 45000, "IDR", []string{"design", "fixtures"}, false, "2026-10-05T15:40:00Z"},
 }
 
 func main() {
@@ -69,7 +58,7 @@ func main() {
 		log.Error("open", "err", err)
 		os.Exit(1)
 	}
-	repo := postgres.NewCustomerRepository(db)
+	repo := postgres.NewShowcaseRepository(db)
 
 	created, skipped := 0, 0
 	for _, f := range fixtures {
@@ -78,16 +67,22 @@ func main() {
 			log.Error("fixture time", "id", f.id, "err", err)
 			os.Exit(1)
 		}
-		customer, err := entity.NewCustomer(f.id, f.name, f.email, f.currency, createdAt)
+		item, err := entity.NewShowcaseItem(
+			f.id,
+			f.title,
+			f.description,
+			f.owner,
+			f.currency,
+			f.status,
+			f.amount,
+			f.tags,
+			createdAt,
+		)
 		if err != nil {
 			log.Error("fixture", "id", f.id, "err", err)
 			os.Exit(1)
 		}
-		customer.BalanceMinor = f.balance
-		if err := customer.SetStatus(f.status); err != nil {
-			log.Error("fixture status", "id", f.id, "err", err)
-			os.Exit(1)
-		}
+		item.SetDone(f.done)
 
 		if _, err := repo.Get(ctx, f.id); err == nil {
 			skipped++
@@ -96,7 +91,7 @@ func main() {
 			log.Error("check fixture", "id", f.id, "err", err)
 			os.Exit(1)
 		}
-		if err := repo.Create(ctx, customer); err != nil {
+		if err := repo.Create(ctx, item); err != nil {
 			log.Error("seed fixture", "id", f.id, "err", err)
 			os.Exit(1)
 		}

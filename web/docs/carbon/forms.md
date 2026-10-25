@@ -71,7 +71,7 @@ section a legend.
 
 ## Actions
 
-- Primary = the task (`Create customer`, `Save changes`), not "Submit".
+- Primary = the task (`Create item`, `Save changes`), not "Submit".
 - Secondary = cancel/discard; it is the negative half of the pair, never a
   positive action on its own.
 - Buttons sit at the **bottom** of the form, never pinned at the top.
@@ -121,21 +121,22 @@ import {
   FormGroup,
   InlineNotification,
   Stack,
+  TextArea,
   TextInput,
 } from "@carbon/react";
 
-export function CustomerForm() {
+export function ShowcaseForm() {
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
       <Stack gap={9}>
-        <FormGroup legendText="Customer">
+        <FormGroup legendText="Record">
           <Stack gap={7}>
-            <TextInput id="name" labelText="Name" />
-            <TextInput id="email" labelText="Email" type="email" />
+            <TextInput id="title" labelText="Title" />
+            <TextArea id="description" labelText="Description" rows={4} />
           </Stack>
         </FormGroup>
         <ButtonSet>
-          <Button type="submit">Create customer</Button>
+          <Button type="submit">Create item</Button>
           <Button kind="secondary" type="button">
             Cancel
           </Button>
@@ -149,9 +150,9 @@ export function CustomerForm() {
 Wire the submit to the generated Connect mutation, invalidate the affected
 query keys, and show the success or error notification. Keep the page a shell:
 the form is a client component in the route's `_components`. The working
-example is
-`src/app/(app)/customers/new/_components/customer-form.tsx`; edit mirrors it in
-`src/app/(app)/customers/[id]/edit/_components/edit-customer-form.tsx`.
+example is the create/edit modal in
+`src/design/assemblies/showcase-form.tsx`; the list wires it to the generated
+Connect mutation in `src/design/assemblies/showcase-list.tsx`.
 
 ## Common mistakes
 

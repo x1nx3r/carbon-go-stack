@@ -4,7 +4,7 @@ Read when adding an RPC, an error, a health endpoint or an interceptor.
 
 ## Server
 
-- `connect-go` serves `erp.customers.v1.CustomersService` on one listener.
+- `connect-go` serves `erp.showcase.v1.ShowcaseService` on one listener.
 - No grpc-gateway, no REST mapping, no OpenAPI. If a non-Connect client appears,
   connect-go can also serve gRPC on the same handler.
 - `/healthz` is liveness; `/readyz` pings Postgres.
@@ -42,5 +42,5 @@ The client should branch on the code, not on the message.
 ## Frontend path
 
 The Next BFF forwards `Host`, body and cookies to
-`http://127.0.0.1:8080/erp.customers.v1.CustomersService/...`. The backend does
+`http://127.0.0.1:8080/erp.showcase.v1.ShowcaseService/...`. The backend does
 not need CORS while the BFF is the only caller.

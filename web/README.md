@@ -1,11 +1,11 @@
 # Next + Carbon (`web/`)
 
-The frontend of `carbon-go-stack`: a Next.js + Carbon app that renders the ERP
-screens. The backend is in `../api/`, a hexagonal Go monolith that owns the
-domain. The protobuf contract is canonical at `../contract/`.
+The frontend of `carbon-go-stack`: a Next.js + Carbon app. The backend is in
+`../api/`, a hexagonal Go monolith that owns the domain. The protobuf contract
+is canonical at `../contract/`.
 
 This directory is not a separate repository. A session clones the whole
-template; `web/` and `api/` share one commit and one contract.
+template; `web/`, `api/`, and `contract/` share one commit.
 
 ## Stack
 
@@ -20,18 +20,19 @@ template; `web/` and `api/` share one commit and one contract.
 
 ```sh
 IBM_TELEMETRY_DISABLED=true npm install
-
-# terminal 1: a mock CustomersService over Connect
-npm run mock
-
-# terminal 2: the app
-npm run dev
 ```
 
-From the repository root, use `npm --prefix web install` and `npm --prefix web
-run dev`. The BFF reads `API_URL` (default `http://127.0.0.1:4010`, the mock).
-Copy `.env.example` to `.env.local` and point it at the real backend when you
-have one:
+From the repository root, start the real backend and the app:
+
+```sh
+make db-up
+make seed
+make run-api       # terminal 1, http://127.0.0.1:8080
+make web-dev       # terminal 2, http://127.0.0.1:3000
+```
+
+The BFF reads `API_URL` (default `http://127.0.0.1:8080`). Copy `.env.example`
+to `.env.local` only when the backend runs elsewhere:
 
 ```sh
 API_URL=http://127.0.0.1:8080 npm run dev
@@ -61,18 +62,29 @@ client components, server shells for pages, and one BFF proxy as the only
 server code. If a task needs computation, secrets, persistence or rules, it
 belongs in the backend. The decision and its consequences:
 `docs/adr/0001-web-is-client-only.md`; the agent checklist:
-`.opencode/skills/web-boundaries/SKILL.md`.
+`../.opencode/skills/web-boundaries/SKILL.md`.
 
 Lint enforces the shape: no Server Actions, no `"use client"` in pages or
 layouts, no `fetch` outside the BFF, no `next/headers`, no `connect-node` in
 `src/`, no Tailwind or other UI kits, no raw hex colors.
+
+## Design reference
+
+`/design` is the worked example and the approved component catalogue. It is
+hidden from product navigation but remains directly accessible. Read
+`src/design/catalog.ts` first, then open `/design`; a primitive or assembly that
+is not in the catalogue is not approved for a product screen.
+
+The live assembly uses one `ShowcaseService` vertical: contract, Go usecase,
+PostgreSQL adapter, generated client, table, form, detail, and danger dialog.
+The landing page at `/` is static lorem-ipsum copy.
 
 ## Page composition
 
 Pages use `Page` (`src/components/page.tsx`), which owns the grid, the title
 block and the block rhythm. The shell owns the fixed-header offset. The
 measured contract — header→title 32 px, title→description 16 px, blocks
-32 px — lives in `.opencode/skills/carbon-ui/SKILL.md`; the reference
+32 px — lives in `../.opencode/skills/carbon-ui/SKILL.md`; the reference
 screenshots live in `docs/visual/` at 1440 and 390 px. Never hand-roll shell
 padding in a page.
 
@@ -89,18 +101,19 @@ wrapper unless a region differs.
 
 ```
 src/app/(app)/                 shell + pages (server components)
-src/app/(app)/customers/       golden slice: list, create and edit
+src/app/(app)/page.tsx         static lorem-ipsum landing page
+src/app/(app)/design/          hidden worked example
 src/app/api/[...path]/         BFF transport proxy
 src/components/                shared UI + providers; page.tsx owns composition
+src/design/                    catalogue, primitive gallery, live assembly
 src/gen/                       generated protobuf types/service (never edit)
 src/lib/connect.ts             typed Connect client
 src/lib/format.ts              money, dates
-mock/                          dev-only CustomersService implementation
 eslint-rules/                  local lint rules (Tailwind class names)
 docs/adr/                      architecture decisions
-docs/carbon/                   agent guidance + vendored Carbon source
+docs/carbon/                   Carbon reference (secondary to the catalogue)
 docs/visual/                  1440 + 390 px baselines + spacing contract
-.opencode/skills/              agent skills loaded on demand
+../.opencode/skills/           agent skills loaded on demand
 AGENTS.md                      standards for agents working in this tree
 ```
 

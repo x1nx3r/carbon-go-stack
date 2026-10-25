@@ -6,7 +6,8 @@ the repository root, in `contract/`.
 
 ## This is a template, not the product
 
-The Customers service is the worked example. Do not infer the product from it.
+The Showcase service is the worked example. It exists to demonstrate the
+backend layers and the design reference; do not infer the product from it.
 
 1. **Ask the user what they are building** and what the requirements are.
 2. Discuss scope, data, states and constraints.
@@ -50,7 +51,7 @@ persistence, Connect, testing, operations and the contract.
 - `make generate` from the repository root runs both sides. `make generate-go`
   runs only the Go generators. `gen/` is generated: never edit it by hand.
 - If you change the proto, regenerate both sides and run both suites.
-- Keep field numbers and the `erp.customers.v1` service name stable; run
+- Keep field numbers and the `erp.showcase.v1` service name stable; run
   `buf breaking` against the released contract when changing it.
 - Auth is later. Do not invent a protected endpoint until the auth ADR defines
   the interceptor and caller identity.
@@ -61,8 +62,8 @@ persistence, Connect, testing, operations and the contract.
   gorm `AutoMigrate`.
 - Money is `int64` minor units plus a currency code. Dates are UTC; the
   transport formats RFC 3339.
-- IDs are opaque strings. Runtime IDs are UUIDs; fixtures use `cus_001…` so the
-  UI baselines stay stable.
+- IDs are opaque strings. Runtime IDs are UUIDs; fixtures use `show_001…` so
+  the UI baselines stay stable.
 - List queries are 1-based with an explicit page size and a total.
 
 ## Commands
