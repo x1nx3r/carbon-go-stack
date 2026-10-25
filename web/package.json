@@ -9,8 +9,7 @@
     "lint": "eslint && npm run lint:styles",
     "typecheck": "next typegen && tsc --noEmit",
     "lint:styles": "stylelint \"src/**/*.scss\"",
-    "api:generate": "make -C .. generate-web",
-    "mock": "tsx mock/server.ts"
+    "api:generate": "make -C .. generate-web"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.16.0",
@@ -35,7 +34,6 @@
     "eslint-config-next": "16.4.3",
     "stylelint": "^17.16.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "tsx": "^4.23.15",
     "typescript": "^5"
   },
   "engines": {

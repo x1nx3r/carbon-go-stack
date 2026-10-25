@@ -5,7 +5,7 @@ Read when adding a query, table, migration, index or seed.
 ## Boundaries
 
 - gorm lives only in `internal/adapter/postgres`.
-- Row structs are private to the adapter. Convert to `entity.Customer` at the
+- Row structs are private to the adapter. Convert to `entity.ShowcaseItem` at the
   boundary; no gorm type crosses it.
 - Repositories receive `entity` values and return `entity` values or
   `port.ErrNotFound`.
@@ -17,7 +17,7 @@ Read when adding a query, table, migration, index or seed.
 - Never edit an applied migration; add the next numbered pair.
 - Never use gorm `AutoMigrate`; the schema must be reviewable and reversible.
 - Use `timestamptz` for times, `bigint` for minor-unit money, `char(3)` for
-  currency.
+  currency, and `text[]` for short tag lists.
 - Add an index with the query that needs it, not speculatively.
 
 ## Queries
@@ -25,7 +25,7 @@ Read when adding a query, table, migration, index or seed.
 - Always pass `ctx`.
 - Count before applying limit/offset when returning a total.
 - Search is case-insensitive (`ILIKE`) and trimmed in the usecase.
-- Order deterministically: `created_at DESC, id ASC` today.
+- Order deterministically: `updated_at DESC, id ASC` today.
 - Keep pagination 1-based; clamp the size in the usecase.
 - Use a transaction only when more than one write must succeed together.
 
@@ -45,6 +45,6 @@ update and returns `port.ErrNotFound` only when the row does not exist.
 
 ## Seeding
 
-`cmd/seed` uses the same 23 records and IDs as the frontend mock, so the UI and
-its visual baselines can be exercised against the real stack. Seed is
-idempotent: existing IDs are skipped.
+`cmd/seed` uses the same ten records and `show_001…` IDs as the design
+fixtures, so the UI and its visual baselines can be exercised against the real
+stack. Seed is idempotent: existing IDs are skipped.

@@ -4,19 +4,17 @@ Reference screenshots of the template at **1440 px wide**. They are not golden
 tests; they exist so an agent (or a person) can compare a change against the
 intended rhythm instead of judging "looks fine" from code.
 
-- `dashboard-1440.png` — `/`
-- `customers-1440.png` — `/customers`, loaded state
-- `customers-new-1440.png` — `/customers/new`, empty form
-- `customers-edit-1440.png` — `/customers/<id>/edit`, prefilled form
-- `delete-modal-1440.png` — the danger confirmation for deleting a customer
+- `landing-1440.png` — `/`, static lorem-ipsum landing page
+- `design-1440.png` — `/design`, catalogue, primitive gallery, and live showcase table
+- `design-form-1440.png` — `/design`, create form in the dialog
+- `design-delete-1440.png` — `/design`, danger confirmation
 
 Mobile, **390 px** wide:
 
-- `dashboard-390.png`
-- `customers-390.png` — Email and Created are hidden; actions stay pinned
-- `customers-new-390.png` — full-width stacked actions
-- `customers-edit-390.png`
-- `delete-modal-390.png` — full-width dialog, Cancel focused
+- `landing-390.png`
+- `design-390.png` — catalogue, stacked primitive examples, and live table
+- `design-form-390.png` — full-width stacked form
+- `design-delete-390.png` — full-width dialog, Cancel focused
 
 The Next dev indicator is disabled in `next.config.ts`, so screenshots stay
 clean.
@@ -37,24 +35,26 @@ clean.
 | Page gutter at 1440 | 32 px (Carbon grid) |
 | Mobile page gutter | 16 px |
 | Mobile form actions | full width, stacked |
-| Mobile table | Email/Created hidden; actions sticky |
+| Mobile table | Owner/Updated hidden; actions sticky |
 | Mobile modal | full width |
 | Numeric columns | right-aligned |
-| Page actions | links, not buttons |
+| Page actions | links or buttons, chosen by task |
 
 These come from Carbon spacing tokens (`05` = 1rem, `06` = 1.5rem,
 `07` = 2rem). The live contract is in
-`.opencode/skills/carbon-ui/SKILL.md`.
+`../../../.opencode/skills/carbon-ui/SKILL.md`.
 
 ## Regenerating
 
 ```sh
-npm run mock   # terminal 1
-npm run dev    # terminal 2
+make db-up
+make seed
+make run-api       # terminal 1
+make web-dev       # terminal 2
 
 # at a 1440px-wide viewport
-# /            → docs/visual/dashboard-1440.png
-# /customers   → docs/visual/customers-1440.png
+# /        → docs/visual/landing-1440.png
+# /design  → docs/visual/design-1440.png
 ```
 
 Measure, do not eyeball: compare `getBoundingClientRect()` gaps with the

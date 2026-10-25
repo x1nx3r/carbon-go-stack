@@ -1,6 +1,6 @@
 # Contract
 
-`erp/customers/v1/customers.proto` is canonical for the whole template.
+`erp/showcase/v1/showcase.proto` is canonical for the whole template.
 `web/` and `api/` both generate from this tree.
 
 ```sh

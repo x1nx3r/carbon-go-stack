@@ -9,13 +9,13 @@ import (
 	"gorm.io/gorm"
 
 	"erp-api/internal/adapter/postgres"
-	"erp-api/internal/app/usecase/customers"
+	"erp-api/internal/app/usecase/showcase"
 )
 
 type Dependencies struct {
-	DB        *gorm.DB
-	Customers customers.UseCase
-	Ready     func(context.Context) error
+	DB       *gorm.DB
+	Showcase showcase.UseCase
+	Ready    func(context.Context) error
 }
 
 func InitDependencies(ctx context.Context, cfg Config, log *slog.Logger) (Dependencies, error) {
@@ -26,12 +26,12 @@ func InitDependencies(ctx context.Context, cfg Config, log *slog.Logger) (Depend
 	if err != nil {
 		return Dependencies{}, err
 	}
-	repo := postgres.NewCustomerRepository(db)
-	uc := customers.New(repo, systemClock{}, uuidIDs{})
+	repo := postgres.NewShowcaseRepository(db)
+	uc := showcase.New(repo, systemClock{}, uuidIDs{})
 	return Dependencies{
-		DB:        db,
-		Customers: uc,
-		Ready:     func(ctx context.Context) error { return postgres.Ping(ctx, db) },
+		DB:       db,
+		Showcase: uc,
+		Ready:    func(ctx context.Context) error { return postgres.Ping(ctx, db) },
 	}, nil
 }
 

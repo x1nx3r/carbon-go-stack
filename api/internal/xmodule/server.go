@@ -10,7 +10,7 @@ import (
 
 	"connectrpc.com/connect"
 
-	"erp-api/gen/erp/customers/v1/customersv1connect"
+	"erp-api/gen/erp/showcase/v1/showcasev1connect"
 	"erp-api/internal/handler/connecthandler"
 )
 
@@ -29,9 +29,9 @@ func Serve(ctx context.Context, cfg Config, deps Dependencies, log *slog.Logger)
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ready"})
 	})
 
-	customers := connecthandler.NewCustomers(deps.Customers, log)
-	path, handler := customersv1connect.NewCustomersServiceHandler(
-		customers,
+	showcase := connecthandler.NewShowcase(deps.Showcase, log)
+	path, handler := showcasev1connect.NewShowcaseServiceHandler(
+		showcase,
 		connect.WithInterceptors(connecthandler.Recovery(log), connecthandler.Logging(log)),
 	)
 	mux.Handle(path, handler)

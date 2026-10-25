@@ -19,7 +19,7 @@ From the repository root:
 
 ```sh
 make db-up       # throwaway Postgres on 127.0.0.1:55432, no volume
-make seed        # 23 fixture customers, same IDs as the frontend mock
+make seed        # 10 showcase fixtures for the design slice
 make run-api     # http://127.0.0.1:8080
 ```
 
@@ -38,7 +38,7 @@ Go and PostgreSQL when the session runs it.
 
 ## Contract
 
-`../contract/erp/customers/v1/customers.proto` is canonical. The frontend
+`../contract/erp/showcase/v1/showcase.proto` is canonical. The frontend
 generates its TypeScript from the same file; the backend generates the Go
 messages and Connect handler. Run from the repository root:
 
@@ -54,11 +54,11 @@ running `buf`. `make -C api tools` installs the two Go plugins if needed.
 
 ```
 cmd/erp-api/                 main: config, dependencies, server
-cmd/seed/                    dev fixtures (same 23 records as the mock)
+cmd/seed/                    dev fixtures for the design slice
 internal/
-  entity/                    pure domain: Customer, Status, validation
+  entity/                    pure domain: ShowcaseItem, Status, validation
   app/port/                  repository, clock, IDs
-  app/usecase/customers/     business operations and domain errors
+  app/usecase/showcase/      business operations and domain errors
   adapter/postgres/          gorm queries, connection, pooling
   handler/connecthandler/    Connect service, mapping, error codes
   xmodule/                   config, logger, wiring, HTTP server

@@ -2,7 +2,9 @@
 
 One repository, three trees: `web/` (Next.js + Carbon), `api/` (Go,
 hexagonal, Connect), and `contract/` (canonical protobuf). This is a template,
-not the product. The Customers slice is the worked example.
+not the product. The design slice at `/design` is the worked example; it is
+hidden from product navigation. The landing page at `/` is static placeholder
+copy.
 
 ## This is a template
 
@@ -23,9 +25,11 @@ Cross-cutting decisions go in `docs/adr/`. Web decisions go in
 
 | Need | Read |
 |---|---|
+| UI reference first | `web/src/design/catalog.ts`, then `/design` |
 | Frontend rules | `web/AGENTS.md` |
 | Backend rules | `api/AGENTS.md` |
 | Contract workflow | `api/docs/guidelines/contract.md` |
+| UI composition skill | `.opencode/skills/carbon-ui/SKILL.md` |
 | Frontend boundary decision | `web/docs/adr/0001-web-is-client-only.md` |
 | Backend architecture decision | `api/docs/adr/0001-backend-monolith-connect.md` |
 | Template repository decision | `docs/adr/0001-template-repository.md` |

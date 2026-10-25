@@ -1,0 +1,43 @@
+@use "@carbon/react/scss/spacing" as spacing;
+@use "@carbon/react/scss/type" as type;
+
+.grid {
+  margin-block-end: spacing.$spacing-07;
+}
+
+.card {
+  block-size: 100%;
+  padding: spacing.$spacing-07;
+
+  h2 {
+    @include type.type-style("heading-04");
+
+    margin-block: spacing.$spacing-05;
+  }
+
+  p {
+    @include type.type-style("body-01");
+
+    margin: 0;
+    color: var(--cds-text-secondary);
+  }
+}
+
+.banner {
+  padding: spacing.$spacing-06;
+
+  p {
+    @include type.type-style("body-01");
+
+    margin: spacing.$spacing-03 0 0;
+    color: var(--cds-text-secondary);
+  }
+}
+
+.eyebrow {
+  @include type.type-style("label-01");
+
+  color: var(--cds-text-secondary);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

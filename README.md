@@ -39,17 +39,12 @@ The template manifest asks for one secret at summon: `OPENCODE_API_KEY` for
 the model provider. The repository is public, so the session clone needs no
 GitHub token.
 
-`make db-down` removes the throwaway database. Without a backend, the web app
-can run against its mock:
-
-```sh
-npm --prefix web run mock
-npm --prefix web run dev
-```
+`make db-down` removes the throwaway database. The design slice needs the real
+backend; there is no mock service in the template.
 
 ## Contract
 
-`contract/erp/customers/v1/customers.proto` is canonical. Both sides generate
+`contract/erp/showcase/v1/showcase.proto` is canonical. Both sides generate
 from it:
 
 ```sh
@@ -75,7 +70,7 @@ hand. There is no copied contract and no sync step.
 | Install web dependencies | `make web-install` |
 
 The web tree has its own commands: `npm --prefix web run lint`, `typecheck`,
-`build`, and `mock`.
+and `build`.
 
 ## Layout
 
@@ -95,8 +90,9 @@ Per-tree agent guides: `web/AGENTS.md` and `api/AGENTS.md`. The root
 
 ## Template rule
 
-This is a template, not the product. The Customers slice is the worked
-example. Before you build:
+This is a template, not the product. The design slice at `/design` is the
+worked example; it is hidden from product navigation. The landing page at `/`
+is placeholder copy. Before you build:
 
 1. Ask what the user is building and what the requirements are.
 2. Discuss scope, data, states, and constraints.

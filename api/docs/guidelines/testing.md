@@ -4,11 +4,11 @@ Read when adding or changing behaviour, a query, an RPC or a migration.
 
 ## Unit tests
 
-- Usecase tests use fakes for `port.CustomerRepository`, `port.Clock` and
+- Usecase tests use fakes for `port.ShowcaseRepository`, `port.Clock` and
   `port.IDs`; no Docker, no Postgres, no gorm.
 - Test behaviour and errors, not implementation details.
 - Cover the defaults: page clamping, default currency, active status, zero
-  balance, clock timestamps.
+  amount, clock timestamps.
 - Entity validation can be tested directly.
 
 ## Handler tests
