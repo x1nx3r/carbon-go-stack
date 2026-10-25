@@ -28,7 +28,7 @@ Cross-cutting decisions go in `docs/adr/`. Web decisions go in
 | Contract workflow | `api/docs/guidelines/contract.md` |
 | Frontend boundary decision | `web/docs/adr/0001-web-is-client-only.md` |
 | Backend architecture decision | `api/docs/adr/0001-backend-monolith-connect.md` |
-| Merge decision | `docs/adr/0001-merged-template-repository.md` |
+| Template repository decision | `docs/adr/0001-template-repository.md` |
 
 The frontend is client-only. All reads and writes go through the generated
 Connect client and TanStack Query in client components; the only web server
