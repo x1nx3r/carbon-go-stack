@@ -219,7 +219,9 @@ export function ShowcaseList() {
                     <TableHeader className={styles.hideSmall}>Owner</TableHeader>
                     <TableHeader className={styles.numeric}>Amount</TableHeader>
                     <TableHeader className={styles.hideSmall}>Updated</TableHeader>
-                    <TableHeader className={styles.actionsHeader}>Actions</TableHeader>
+                    <TableHeader className={styles.actionsHeader} aria-label="Actions">
+                      <span className={styles.actionsLabel}>Actions</span>
+                    </TableHeader>
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -294,6 +294,10 @@
   inline-size: 5rem;
 }
 
+.actionsLabel {
+  display: inline;
+}
+
 .actionsCell {
   text-align: end;
 }
@@ -394,6 +398,10 @@
 
   .filter {
     inline-size: 100%;
+  }
+
+  .actionsLabel {
+    display: none;
   }
 
   .actionsHeader,
