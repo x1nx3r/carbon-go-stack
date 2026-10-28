@@ -14,7 +14,7 @@ toolchain:
   - postgresql@18
 opencode:
   mode: connect
-  model: opencode/glm-5.3-flash
+  model: opencode/deepseek-v4.1-flash
 resources:
   cpus: "4"
   memory: 6g
